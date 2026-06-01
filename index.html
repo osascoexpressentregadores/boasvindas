@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Boas-vindas ao Parceiro Osasco Express | Gibi de Integração</title>
+  <meta name="description" content="Gibi digital de boas-vindas para parceiros Osasco Express, com leitura folheável, cultura operacional e orientações de entrega." />
+  <meta name="robots" content="noindex,nofollow" />
+  <meta name="theme-color" content="#111111" />
+  <link rel="preload" as="image" href="assets/img/01_capa_boas_vindas_ao_parceiro_oe.png" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar" aria-label="Topo do gibi digital">
+      <div class="brand">
+        <img src="assets/img/logo_osasco_express.png" alt="Osasco Express" />
+        <div>
+          <strong>Boas-vindas ao Parceiro</strong>
+          <span>Gibi de Integração OE</span>
+        </div>
+      </div>
+      <div class="top-actions">
+        <button class="icon-btn" id="btnFirst" type="button" title="Voltar para capa">Capa</button>
+        <button class="icon-btn" id="btnFullscreen" type="button" title="Tela cheia">Tela cheia</button>
+      </div>
+    </header>
+
+    <main class="reader" aria-label="Leitor do gibi de boas-vindas">
+      <section class="intro-card" id="introCard">
+        <p class="eyebrow">Osasco Express</p>
+        <h1>Leia como um gibi. Passe página por página.</h1>
+        <p>O Kauan conduz a integração com linguagem simples, visual de Copa e foco no que mais importa na operação: comunicar, confirmar, conferir e jogar junto.</p>
+        <button class="primary-btn" id="btnStart" type="button">Começar leitura</button>
+      </section>
+
+      <section class="book-stage" id="bookStage" aria-live="polite">
+        <button class="nav-arrow nav-prev" id="btnPrev" type="button" aria-label="Página anterior">‹</button>
+
+        <div class="book-wrap">
+          <div class="book-shadow"></div>
+          <div class="book" id="book" aria-label="Gibi folheável">
+            <article class="sheet active" data-page="1" data-title="Capa: Boas-vindas">
+              <div class="page page-front"><img src="assets/img/01_capa_boas_vindas_ao_parceiro_oe.png" alt="Capa do gibi Boas-vindas ao Parceiro Osasco Express com Kauan camisa 10" /></div>
+            </article>
+            <article class="sheet" data-page="2" data-title="Você foi convocado">
+              <div class="page page-front"><img src="assets/img/02_voce_foi_convocado.png" alt="Página você foi convocado para o time Osasco Express" /></div>
+            </article>
+            <article class="sheet" data-page="3" data-title="Que tipo de jogador você é">
+              <div class="page page-front"><img src="assets/img/03_que_tipo_de_jogador_voce_e.png" alt="Página que tipo de jogador você é, com Kauan mostrando comportamentos de parceiro" /></div>
+            </article>
+            <article class="sheet" data-page="4" data-title="Grupo é o rádio do time">
+              <div class="page page-front"><img src="assets/img/04_grupo_radio_do_time.png" alt="Página o grupo é o rádio do time" /></div>
+            </article>
+            <article class="sheet" data-page="5" data-title="Chegou no cliente">
+              <div class="page page-front"><img src="assets/img/05_chegou_no_cliente.png" alt="Página chegou no cliente, avise no grupo e fique online no app" /></div>
+            </article>
+            <article class="sheet" data-page="6" data-title="Jogada certa da entrega">
+              <div class="page page-front"><img src="assets/img/06_jogada_certa_da_entrega.png" alt="Página a jogada certa da entrega com passo a passo" /></div>
+            </article>
+            <article class="sheet" data-page="7" data-title="Código é o gol validado">
+              <div class="page page-front"><img src="assets/img/07_codigo_gol_validado.png" alt="Página código é o gol validado, confirme com iFood ou 99" /></div>
+            </article>
+            <article class="sheet" data-page="8" data-title="Antes de sair da loja">
+              <div class="page page-front"><img src="assets/img/08_antes_de_sair_da_loja.png" alt="Página antes de sair da loja com checklist" /></div>
+            </article>
+            <article class="sheet" data-page="9" data-title="Cliente não atende">
+              <div class="page page-front"><img src="assets/img/09_cliente_nao_atende.png" alt="Página cliente não atende com processo de registro" /></div>
+            </article>
+            <article class="sheet" data-page="10" data-title="Jogue junto até o apito final">
+              <div class="page page-front"><img src="assets/img/10_jogue_junto_ate_o_apito_final.png" alt="Página jogue junto até o apito final com Kauan e mensagem de fechamento" /></div>
+            </article>
+          </div>
+        </div>
+
+        <button class="nav-arrow nav-next" id="btnNext" type="button" aria-label="Próxima página">›</button>
+      </section>
+
+      <section class="control-panel" aria-label="Controles de leitura">
+        <div class="progress-info">
+          <strong id="pageTitle">Capa: Boas-vindas</strong>
+          <span id="pageCounter">Página 1 de 10</span>
+        </div>
+        <div class="progress-bar" aria-hidden="true"><span id="progressFill"></span></div>
+        <div class="buttons-row">
+          <button class="secondary-btn" id="btnPrevSmall" type="button">Voltar</button>
+          <button class="primary-btn" id="btnNextSmall" type="button">Próxima página</button>
+        </div>
+      </section>
+
+      <nav class="thumbs" id="thumbs" aria-label="Miniaturas das páginas">
+        <button class="thumb active" data-go="0" type="button"><img src="assets/img/01_capa_boas_vindas_ao_parceiro_oe.png" alt="" /><span>1</span></button>
+        <button class="thumb" data-go="1" type="button"><img src="assets/img/02_voce_foi_convocado.png" alt="" /><span>2</span></button>
+        <button class="thumb" data-go="2" type="button"><img src="assets/img/03_que_tipo_de_jogador_voce_e.png" alt="" /><span>3</span></button>
+        <button class="thumb" data-go="3" type="button"><img src="assets/img/04_grupo_radio_do_time.png" alt="" /><span>4</span></button>
+        <button class="thumb" data-go="4" type="button"><img src="assets/img/05_chegou_no_cliente.png" alt="" /><span>5</span></button>
+        <button class="thumb" data-go="5" type="button"><img src="assets/img/06_jogada_certa_da_entrega.png" alt="" /><span>6</span></button>
+        <button class="thumb" data-go="6" type="button"><img src="assets/img/07_codigo_gol_validado.png" alt="" /><span>7</span></button>
+        <button class="thumb" data-go="7" type="button"><img src="assets/img/08_antes_de_sair_da_loja.png" alt="" /><span>8</span></button>
+        <button class="thumb" data-go="8" type="button"><img src="assets/img/09_cliente_nao_atende.png" alt="" /><span>9</span></button>
+        <button class="thumb" data-go="9" type="button"><img src="assets/img/10_jogue_junto_ate_o_apito_final.png" alt="" /><span>10</span></button>
+      </nav>
+    </main>
+
+    <footer class="footer-note">
+      <span>© Osasco Express</span>
+      <span>Material interno de integração. Comunicação, respeito, confiança e compromisso.</span>
+    </footer>
+  </div>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
