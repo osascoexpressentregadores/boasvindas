@@ -1,14 +1,21 @@
-GIBI DIGITAL DE BOAS-VINDAS | OSASCO EXPRESS
+GIBI DE BOAS-VINDAS OSASCO EXPRESS - V3 PROFISSIONAL
 
-Como usar:
+Como abrir:
 1. Abra o arquivo index.html no navegador.
-2. Para publicar, envie a pasta inteira para a hospedagem/GitHub Pages.
-3. Não remova a pasta assets. Ela contém CSS, JS e imagens.
+2. No computador, use as setas laterais ou as setas do teclado.
+3. No celular, deslize a página do gibi ou use as miniaturas.
 
-Controles:
-- Clique nas setas ou nos botões Voltar/Próxima página.
-- No computador, use as setas do teclado.
-- No celular, arraste para o lado para folhear.
+Estrutura:
+- index.html
+- assets/css/style.css
+- assets/js/main.js
+- assets/img/ páginas do gibi em ordem
 
 Observação:
-As imagens foram mantidas como arquivos PNG e apenas organizadas/renomeadas dentro de assets/img.
+Projeto está configurado como material institucional interno, sem indexação por buscadores.
+
+Atualização Glassmorphism:
+- Aplicado efeito vidro fosco nos painéis principais: cabeçalho, faixa institucional, área do livro, painel de navegação e modal final.
+- Fundo recebeu gradiente verde/amarelo/vermelho/azul para destacar o vidro.
+- Incluídos rgba, backdrop-filter, borda clara fina e sombras suaves.
+- As imagens do gibi não foram alteradas.
