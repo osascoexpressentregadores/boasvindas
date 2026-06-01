@@ -61,7 +61,11 @@
     pageLabel.textContent=start===end ? `${data[start][0]} / ${String(data.length).padStart(2,'0')}` : `${data[start][0]}–${data[end][0]} / ${String(data.length).padStart(2,'0')}`;
     progressBar.style.width=`${((end+1)/data.length)*100}%`;
     prevBtn.disabled=start===0; nextBtn.disabled=end===data.length-1;
-    finishBtn.textContent = end===data.length-1 ? 'Fim da leitura' : 'Ir para o apito final';
+    
+    const atEnd = end===data.length-1;
+    finishBtn.textContent = 'Leitura concluída';
+    finishBtn.classList.toggle('is-hidden', !atEnd);
+    finishBtn.classList.toggle('is-ready', atEnd);
     Array.from(stickers.children).forEach((s,i)=>s.classList.toggle('active',i>=start&&i<=end));
     try{ stickers.children[start].scrollIntoView({block:'nearest',inline:'center',behavior:'smooth'}); }catch(e){}
   }
@@ -69,10 +73,30 @@
   function go(i){ const max=data.length-1; lastAction=i<index?'prev':'next'; index=Math.max(0,Math.min(i,max)); render(); animate(); }
   function next(){ if(index>=data.length-1){openFinal();return;} go(desktop()?Math.min(pairStart()+2,data.length-1):index+1); }
   function prev(){ go(desktop()?Math.max(pairStart()-2,0):index-1); }
-  function openFinal(){ finale.classList.add('open'); finale.setAttribute('aria-hidden','false'); }
+  
+  function celebrate(){
+    const old = finale.querySelector('.finale-celebration');
+    if(old) old.remove();
+    const box=document.createElement('div');
+    box.className='finale-celebration';
+    const colors=['#ffd73f','#0aa34b','#e7192f','#ffffff','#062b69'];
+    for(let i=0;i<42;i++){
+      const c=document.createElement('i');
+      c.style.left=(Math.random()*100)+'%';
+      c.style.background=colors[i%colors.length];
+      c.style.animationDelay=(Math.random()*.55)+'s';
+      c.style.animationDuration=(1.15+Math.random()*1.1)+'s';
+      c.style.transform='rotate('+Math.floor(Math.random()*180)+'deg)';
+      box.appendChild(c);
+    }
+    finale.appendChild(box);
+    setTimeout(()=>box.remove(),2700);
+  }
+  function openFinal(){ finale.classList.add('open'); finale.setAttribute('aria-hidden','false'); celebrate(); }
+
   function closeFinal(){ finale.classList.remove('open'); finale.setAttribute('aria-hidden','true'); }
   prevBtn.addEventListener('click',prev); nextBtn.addEventListener('click',next);
-  finishBtn.addEventListener('click',()=>{ if(index<data.length-1) go(data.length-1); else openFinal(); });
+  finishBtn.addEventListener('click',()=>{ if(index>=data.length-1) openFinal(); });
   restartBtn.addEventListener('click',()=>{closeFinal();go(0)});
   document.querySelectorAll('[data-close]').forEach(el=>el.addEventListener('click',closeFinal));
   addEventListener('keydown',e=>{ if(e.key==='ArrowRight'||e.key===' ') next(); if(e.key==='ArrowLeft') prev(); if(e.key==='Escape') closeFinal(); });

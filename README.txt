@@ -13,9 +13,3 @@ Estrutura:
 
 Observação:
 Projeto está configurado como material institucional interno, sem indexação por buscadores.
-
-Atualização Glassmorphism:
-- Aplicado efeito vidro fosco nos painéis principais: cabeçalho, faixa institucional, área do livro, painel de navegação e modal final.
-- Fundo recebeu gradiente verde/amarelo/vermelho/azul para destacar o vidro.
-- Incluídos rgba, backdrop-filter, borda clara fina e sombras suaves.
-- As imagens do gibi não foram alteradas.
