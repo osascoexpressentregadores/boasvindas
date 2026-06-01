@@ -75,25 +75,24 @@
   function prev(){ go(desktop()?Math.max(pairStart()-2,0):index-1); }
   
   function celebrate(){
-    const old = finale.querySelector('.finale-celebration');
+    const old=document.querySelector('.finale-confetti');
     if(old) old.remove();
     const box=document.createElement('div');
-    box.className='finale-celebration';
+    box.className='finale-confetti';
     const colors=['#ffd73f','#0aa34b','#e7192f','#ffffff','#062b69'];
-    for(let i=0;i<42;i++){
+    for(let i=0;i<44;i++){
       const c=document.createElement('i');
       c.style.left=(Math.random()*100)+'%';
       c.style.background=colors[i%colors.length];
       c.style.animationDelay=(Math.random()*.55)+'s';
-      c.style.animationDuration=(1.15+Math.random()*1.1)+'s';
+      c.style.animationDuration=(1.15+Math.random()*1.15)+'s';
       c.style.transform='rotate('+Math.floor(Math.random()*180)+'deg)';
       box.appendChild(c);
     }
-    finale.appendChild(box);
-    setTimeout(()=>box.remove(),2700);
+    document.body.appendChild(box);
+    setTimeout(()=>box.remove(),2900);
   }
   function openFinal(){ finale.classList.add('open'); finale.setAttribute('aria-hidden','false'); celebrate(); }
-
   function closeFinal(){ finale.classList.remove('open'); finale.setAttribute('aria-hidden','true'); }
   prevBtn.addEventListener('click',prev); nextBtn.addEventListener('click',next);
   finishBtn.addEventListener('click',()=>{ if(index>=data.length-1) openFinal(); });
