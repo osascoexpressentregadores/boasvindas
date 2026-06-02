@@ -1,24 +1,3 @@
-# Gibi online Osasco Express
-
-Arquivo principal: index.html
-
-Regras aplicadas:
-- Fundo branco.
-- Interface sem branco/amarelo como cor de botões/controles.
-- Imagens exibidas inteiras com object-fit: contain.
-- Sem corte de imagem.
-- Mobile-first.
-- Setas laterais, botões, teclado e arraste no celular.
-- Miniaturas navegáveis.
-- Textos leves abaixo da imagem.
-- Última etapa com confirmação de leitura.
-- A confirmação só libera depois que todas as páginas forem vistas.
-- Salva localmente no aparelho via localStorage.
-- Gera confirmação por WhatsApp.
-- Pode salvar centralmente em Google Sheets/App Script preenchendo SHEET_WEBHOOK_URL no index.html.
-
-
-INTEGRAÇÃO COM PLANILHA
 INTEGRAÇÃO DA CONFIRMAÇÃO DE LEITURA COM GOOGLE SHEETS
 
 Planilha informada:
@@ -74,10 +53,3 @@ Total de páginas
 Tipo
 URL de origem
 User Agent
-
-
-REVISÃO DE HISTÓRIA
-- Página 8 reforçada no título: "Problema com cliente? Não discuta".
-- Card de resumo reforçado: "Não discuta com o cliente".
-- Declaração de leitura reforçada com "não discutir com cliente".
-- Incluído mapa da história completa no index para auditoria rápida.

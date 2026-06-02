@@ -375,6 +375,196 @@
       .info h1{font-size:26px}
       .info p{font-size:15px}
     }
+
+    .confirm-section{
+      max-width:920px;
+      margin:0 auto 34px;
+      padding:0 14px;
+    }
+    .confirm-box{
+      background:#eef1f4;
+      border:1px solid rgba(16,17,20,.14);
+      border-radius:28px;
+      box-shadow:var(--shadow);
+      padding:22px 16px;
+    }
+    .confirm-box h2{
+      margin:0 0 8px;
+      font-size:28px;
+      line-height:1.04;
+      letter-spacing:-.04em;
+      color:var(--ink);
+    }
+    .confirm-box p{
+      margin:0 0 14px;
+      color:var(--muted);
+      line-height:1.42;
+      font-size:14px;
+    }
+    .read-status{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding:12px;
+      border-radius:18px;
+      background:#dfe4e9;
+      border:1px solid rgba(16,17,20,.12);
+      margin:14px 0;
+      font-weight:900;
+      color:var(--ink);
+    }
+    .read-status small{
+      color:var(--muted);
+      font-weight:700;
+    }
+    .status-dot{
+      width:14px;
+      height:14px;
+      border-radius:50%;
+      background:var(--red);
+      box-shadow:0 0 0 4px rgba(163,18,25,.12);
+      flex:0 0 auto;
+    }
+    .read-status.is-complete .status-dot{
+      background:var(--green);
+      box-shadow:0 0 0 4px rgba(15,95,58,.13);
+    }
+    .field-grid{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:10px;
+      margin:14px 0;
+    }
+    .field label{
+      display:block;
+      font-size:12px;
+      font-weight:900;
+      text-transform:uppercase;
+      letter-spacing:.06em;
+      color:var(--muted);
+      margin:0 0 6px;
+    }
+    .field input{
+      width:100%;
+      min-height:50px;
+      border-radius:16px;
+      border:1px solid #c7ced6;
+      background:#ffffff;
+      color:var(--ink);
+      padding:0 13px;
+      font:700 16px Arial, Helvetica, sans-serif;
+      outline:none;
+    }
+    .field input:focus{
+      border-color:var(--black);
+      box-shadow:0 0 0 3px rgba(16,17,20,.10);
+    }
+    .confirm-actions{
+      display:flex;
+      flex-direction:column;
+      gap:9px;
+      margin-top:12px;
+    }
+    .btn.confirm{
+      width:100%;
+      min-height:54px;
+      border-radius:18px;
+      background:var(--green);
+      color:#d8dde3;
+    }
+    .btn.confirm:disabled{
+      background:#aab2bb;
+      color:#f3f5f7;
+      cursor:not-allowed;
+    }
+    .btn.whats{
+      width:100%;
+      min-height:52px;
+      border-radius:18px;
+      background:var(--black);
+      color:#d8dde3;
+      text-decoration:none;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      font-weight:900;
+    }
+    .receipt{
+      display:none;
+      margin-top:14px;
+      padding:14px;
+      border-radius:18px;
+      background:#dfe4e9;
+      border:1px solid rgba(16,17,20,.13);
+      color:var(--ink);
+      font-size:13px;
+      line-height:1.45;
+    }
+    .receipt strong{
+      display:block;
+      font-size:15px;
+      margin-bottom:4px;
+    }
+    @media (min-width:760px){
+      .field-grid{grid-template-columns:repeat(3,1fr)}
+      .confirm-actions{flex-direction:row}
+      .btn.confirm,.btn.whats{width:auto;flex:1}
+    }
+
+
+    .story-map{
+      max-width:920px;
+      margin:0 auto 24px;
+      padding:0 14px;
+    }
+    .story-box{
+      background:#eef1f4;
+      border:1px solid rgba(16,17,20,.14);
+      border-radius:28px;
+      padding:18px 16px;
+      box-shadow:0 10px 28px rgba(0,0,0,.08);
+    }
+    .story-box h2{
+      margin:0 0 10px;
+      font-size:24px;
+      letter-spacing:-.04em;
+    }
+    .story-list{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:8px;
+      margin:0;
+      padding:0;
+      list-style:none;
+    }
+    .story-list li{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      background:#dfe4e9;
+      border:1px solid rgba(16,17,20,.10);
+      border-radius:16px;
+      padding:10px 11px;
+      color:var(--ink);
+      line-height:1.28;
+      font-size:14px;
+    }
+    .story-list b{
+      flex:0 0 28px;
+      width:28px;
+      height:28px;
+      border-radius:50%;
+      background:var(--black);
+      color:#d8dde3;
+      display:grid;
+      place-items:center;
+      font-size:13px;
+    }
+    @media (min-width:760px){
+      .story-list{grid-template-columns:repeat(2,1fr)}
+    }
+
   </style>
 </head>
 <body>
@@ -411,6 +601,25 @@
     <button class="arrow prev" type="button" id="prevBtn" aria-label="Página anterior">‹</button>
     <button class="arrow next" type="button" id="nextBtn" aria-label="Próxima página">›</button>
 
+
+    <section class="story-map" aria-label="Mapa da história">
+      <div class="story-box">
+        <h2>Mapa da história completa</h2>
+        <ul class="story-list">
+          <li><b>1</b><span>Boas-vindas e entrada do parceiro na operação.</span></li>
+          <li><b>2</b><span>Loja, cliente, suporte, app e rota como time.</span></li>
+          <li><b>3</b><span>Preparação: moto, tanque, celular e internet.</span></li>
+          <li><b>4</b><span>Grupo da loja como canal oficial da operação.</span></li>
+          <li><b>5</b><span>Aceitar, informar número, coletar e conferir antes de sair.</span></li>
+          <li><b>6</b><span>Código primeiro: cada plataforma tem seu código no grupo da loja.</span></li>
+          <li><b>7</b><span>Cliente não apareceu: contato, foto, grupo, loja, suporte e autorização.</span></li>
+          <li><b>8</b><span>Problema com cliente: não discuta, explique com calma e chame suporte.</span></li>
+          <li><b>9</b><span>Respeito com loja, frente limpa, postura e maquininha quando houver.</span></li>
+          <li><b>10</b><span>Controle das entregas, diária combinada, clareza e missão entendida.</span></li>
+        </ul>
+      </div>
+    </section>
+
     <section class="thumbs-wrap" aria-label="Miniaturas das páginas">
       <h2 class="thumbs-title">Escolha uma página</h2>
       <div class="thumbs" id="thumbs"></div>
@@ -423,7 +632,7 @@
         <div class="card"><strong>Conferência</strong><p>Pedido, comanda, sacola, bebida, endereço, observações e pagamento precisam ser conferidos antes de sair.</p></div>
         <div class="card"><strong>Código</strong><p>Cada plataforma tem seu próprio código. Código primeiro, entrega depois.</p></div>
         <div class="card"><strong>Cliente não localizado</strong><p>Tentar contato, mandar foto com comanda no endereço, avisar a loja e aguardar autorização.</p></div>
-        <div class="card"><strong>Suporte</strong><p>Se houver problema, o parceiro não discute. Aciona apoio e segue orientação.</p></div>
+        <div class="card"><strong>Não discuta com o cliente</strong><p>Se houver problema, o parceiro mantém a calma, explica que vai acionar o suporte e segue orientação.</p></div>
         <div class="card"><strong>Controle</strong><p>Entregas registradas, diária combinada e mais clareza para rodar com previsibilidade.</p></div>
       </div>
     </section>
@@ -439,6 +648,43 @@
         <span class="chip">Jogue junto</span>
       </div>
       <button class="btn" type="button" id="restartBtn">Rever gibi</button>
+    </section>
+
+
+    <section class="confirm-section" aria-label="Confirmação de leitura">
+      <div class="confirm-box">
+        <h2>Confirmação de leitura</h2>
+        <p>Depois de ler todas as páginas, o parceiro confirma que entendeu as orientações principais do gibi de integração.</p>
+
+        <div class="read-status" id="readStatus">
+          <span><span class="status-dot" aria-hidden="true"></span> Leitura das páginas</span>
+          <small id="readCount">0/10 vistas</small>
+        </div>
+
+        <div class="field-grid">
+          <div class="field">
+            <label for="partnerName">Nome do parceiro</label>
+            <input id="partnerName" autocomplete="name" placeholder="Digite seu nome">
+          </div>
+          <div class="field">
+            <label for="partnerPhone">WhatsApp</label>
+            <input id="partnerPhone" inputmode="tel" autocomplete="tel" placeholder="DDD + número">
+          </div>
+          <div class="field">
+            <label for="partnerDoc">Placa ou identificação</label>
+            <input id="partnerDoc" autocomplete="off" placeholder="Opcional">
+          </div>
+        </div>
+
+        <p><strong>Declaração:</strong> li as páginas do gibi de integração e entendi as orientações sobre grupo da loja, conferência, código de entrega, cliente não localizado, não discutir com cliente, suporte, respeito e controle das entregas.</p>
+
+        <div class="confirm-actions">
+          <button class="btn confirm" type="button" id="confirmReadBtn" disabled>Confirmar que li e entendi</button>
+          <a class="btn whats" id="whatsConfirm" target="_blank" rel="noopener">Enviar confirmação no WhatsApp</a>
+        </div>
+
+        <div class="receipt" id="receiptBox"></div>
+      </div>
     </section>
 
     <footer class="footer">
@@ -484,9 +730,9 @@
     "text": "Tentar contato, registrar prova no endereço, avisar no grupo, ligar na loja e acionar suporte."
   },
   {
-    "title": "Precisou de apoio",
+    "title": "Problema com cliente? Não discuta",
     "img": "assets/img/08-precisou-de-apoio.png",
-    "text": "Se der problema, não discutir. Pedir apoio também faz parte da operação."
+    "text": "Se o cliente reclamar ou houver conflito: não discuta, explique com calma que vai acionar o suporte e siga a orientação. Se não conseguir seguir, avise no grupo."
   },
   {
     "title": "Respeito também é entrega",
@@ -522,6 +768,10 @@
       counter.textContent = `${index + 1}/${pages.length}`;
       progress.style.width = `${((index + 1) / pages.length) * 100}%`;
 
+      viewedPages.add(index);
+      localStorage.setItem('oe_gibi_pages_viewed', JSON.stringify(Array.from(viewedPages)));
+      if(typeof updateReadStatus === 'function') updateReadStatus();
+
       [...document.querySelectorAll('.thumb')].forEach((btn, n) => {
         btn.classList.toggle('is-active', n === index);
         if(n === index){
@@ -553,7 +803,87 @@
     document.getElementById('nextText').addEventListener('click', next);
     document.getElementById('prevText').addEventListener('click', prev);
     document.getElementById('restartBtn').addEventListener('click', () => {
-      safeSet(0);
+  
+    const SHEET_WEBHOOK_URL = ""; // Depois de implantar o Apps Script, cole aqui a URL do Web App da planilha.
+    const SUPPORT_WHATSAPP = "5511924782555";
+
+    const viewedPages = new Set(JSON.parse(localStorage.getItem('oe_gibi_pages_viewed') || '[]'));
+    const readStatus = document.getElementById('readStatus');
+    const readCount = document.getElementById('readCount');
+    const confirmReadBtn = document.getElementById('confirmReadBtn');
+    const receiptBox = document.getElementById('receiptBox');
+    const whatsConfirm = document.getElementById('whatsConfirm');
+
+    function updateReadStatus(){
+      readCount.textContent = `${viewedPages.size}/${pages.length} vistas`;
+      const complete = viewedPages.size >= pages.length;
+      readStatus.classList.toggle('is-complete', complete);
+      confirmReadBtn.disabled = !complete;
+      confirmReadBtn.textContent = complete ? 'Confirmar que li e entendi' : `Leia todas as páginas para confirmar (${viewedPages.size}/${pages.length})`;
+    }
+
+    function protocolCode(){
+      const d = new Date();
+      const pad = n => String(n).padStart(2,'0');
+      return `OE-${d.getFullYear()}${pad(d.getMonth()+1)}${pad(d.getDate())}-${pad(d.getHours())}${pad(d.getMinutes())}${pad(d.getSeconds())}`;
+    }
+
+    async function confirmReading(){
+      const name = document.getElementById('partnerName').value.trim();
+      const phone = document.getElementById('partnerPhone').value.trim();
+      const doc = document.getElementById('partnerDoc').value.trim();
+
+      if(!name || !phone){
+        alert('Preencha nome e WhatsApp para registrar a confirmação.');
+        return;
+      }
+
+      if(viewedPages.size < pages.length){
+        alert('Para confirmar, primeiro passe por todas as páginas do gibi.');
+        return;
+      }
+
+      const payload = {
+        tipo: 'confirmacao_leitura_gibi_oe',
+        protocolo: protocolCode(),
+        nome: name,
+        whatsapp: phone,
+        identificacao: doc,
+        paginas_vistas: Array.from(viewedPages).sort((a,b)=>a-b).map(n=>n+1).join(', '),
+        total_paginas: pages.length,
+        data_iso: new Date().toISOString(),
+        user_agent: navigator.userAgent,
+        url: location.href
+      };
+
+      localStorage.setItem('oe_gibi_confirmacao_leitura', JSON.stringify(payload));
+
+      if(SHEET_WEBHOOK_URL){
+        try{
+          await fetch(SHEET_WEBHOOK_URL, {
+            method:'POST',
+            mode:'no-cors',
+            headers:{'Content-Type':'application/json'},
+            body:JSON.stringify(payload)
+          });
+        }catch(err){
+          console.warn('Falha ao enviar para webhook. Registro local preservado.', err);
+        }
+      }
+
+      const msg = `CONFIRMAÇÃO DE LEITURA - GIBI OE%0AProtocolo: ${encodeURIComponent(payload.protocolo)}%0ANome: ${encodeURIComponent(payload.nome)}%0AWhatsApp: ${encodeURIComponent(payload.whatsapp)}%0AIdentificação: ${encodeURIComponent(payload.identificacao || 'Não informado')}%0APáginas vistas: ${encodeURIComponent(payload.paginas_vistas)}%0AData: ${encodeURIComponent(new Date().toLocaleString('pt-BR'))}%0ADeclaro que li e entendi as orientações do gibi de integração.`;
+      whatsConfirm.href = `https://wa.me/${SUPPORT_WHATSAPP}?text=${msg}`;
+      whatsConfirm.style.display = 'flex';
+
+      receiptBox.style.display = 'block';
+      receiptBox.innerHTML = `<strong>Confirmação registrada neste aparelho.</strong>Protocolo: ${payload.protocolo}<br>Nome: ${payload.nome}<br>Páginas vistas: ${payload.paginas_vistas}<br><br>${SHEET_WEBHOOK_URL ? 'Registro preparado para envio ao controle central.' : 'Para salvar no controle da operação agora, toque em “Enviar confirmação no WhatsApp”.'}`;
+      confirmReadBtn.textContent = 'Leitura confirmada';
+    }
+
+    confirmReadBtn.addEventListener('click', confirmReading);
+
+
+    safeSet(0);
       window.scrollTo({top:0, behavior:'smooth'});
     });
 
@@ -579,6 +909,86 @@
 
     // Garante que a imagem seja inteira: sem crop, sem cover.
     image.style.objectFit = 'contain';
+
+
+    const SHEET_WEBHOOK_URL = ""; // Depois de implantar o Apps Script, cole aqui a URL do Web App da planilha.
+    const SUPPORT_WHATSAPP = "5511924782555";
+
+    const viewedPages = new Set(JSON.parse(localStorage.getItem('oe_gibi_pages_viewed') || '[]'));
+    const readStatus = document.getElementById('readStatus');
+    const readCount = document.getElementById('readCount');
+    const confirmReadBtn = document.getElementById('confirmReadBtn');
+    const receiptBox = document.getElementById('receiptBox');
+    const whatsConfirm = document.getElementById('whatsConfirm');
+
+    function updateReadStatus(){
+      readCount.textContent = `${viewedPages.size}/${pages.length} vistas`;
+      const complete = viewedPages.size >= pages.length;
+      readStatus.classList.toggle('is-complete', complete);
+      confirmReadBtn.disabled = !complete;
+      confirmReadBtn.textContent = complete ? 'Confirmar que li e entendi' : `Leia todas as páginas para confirmar (${viewedPages.size}/${pages.length})`;
+    }
+
+    function protocolCode(){
+      const d = new Date();
+      const pad = n => String(n).padStart(2,'0');
+      return `OE-${d.getFullYear()}${pad(d.getMonth()+1)}${pad(d.getDate())}-${pad(d.getHours())}${pad(d.getMinutes())}${pad(d.getSeconds())}`;
+    }
+
+    async function confirmReading(){
+      const name = document.getElementById('partnerName').value.trim();
+      const phone = document.getElementById('partnerPhone').value.trim();
+      const doc = document.getElementById('partnerDoc').value.trim();
+
+      if(!name || !phone){
+        alert('Preencha nome e WhatsApp para registrar a confirmação.');
+        return;
+      }
+
+      if(viewedPages.size < pages.length){
+        alert('Para confirmar, primeiro passe por todas as páginas do gibi.');
+        return;
+      }
+
+      const payload = {
+        tipo: 'confirmacao_leitura_gibi_oe',
+        protocolo: protocolCode(),
+        nome: name,
+        whatsapp: phone,
+        identificacao: doc,
+        paginas_vistas: Array.from(viewedPages).sort((a,b)=>a-b).map(n=>n+1).join(', '),
+        total_paginas: pages.length,
+        data_iso: new Date().toISOString(),
+        user_agent: navigator.userAgent,
+        url: location.href
+      };
+
+      localStorage.setItem('oe_gibi_confirmacao_leitura', JSON.stringify(payload));
+
+      if(SHEET_WEBHOOK_URL){
+        try{
+          await fetch(SHEET_WEBHOOK_URL, {
+            method:'POST',
+            mode:'no-cors',
+            headers:{'Content-Type':'application/json'},
+            body:JSON.stringify(payload)
+          });
+        }catch(err){
+          console.warn('Falha ao enviar para webhook. Registro local preservado.', err);
+        }
+      }
+
+      const msg = `CONFIRMAÇÃO DE LEITURA - GIBI OE%0AProtocolo: ${encodeURIComponent(payload.protocolo)}%0ANome: ${encodeURIComponent(payload.nome)}%0AWhatsApp: ${encodeURIComponent(payload.whatsapp)}%0AIdentificação: ${encodeURIComponent(payload.identificacao || 'Não informado')}%0APáginas vistas: ${encodeURIComponent(payload.paginas_vistas)}%0AData: ${encodeURIComponent(new Date().toLocaleString('pt-BR'))}%0ADeclaro que li e entendi as orientações do gibi de integração.`;
+      whatsConfirm.href = `https://wa.me/${SUPPORT_WHATSAPP}?text=${msg}`;
+      whatsConfirm.style.display = 'flex';
+
+      receiptBox.style.display = 'block';
+      receiptBox.innerHTML = `<strong>Confirmação registrada neste aparelho.</strong>Protocolo: ${payload.protocolo}<br>Nome: ${payload.nome}<br>Páginas vistas: ${payload.paginas_vistas}<br><br>${SHEET_WEBHOOK_URL ? 'Registro preparado para envio ao controle central.' : 'Para salvar no controle da operação agora, toque em “Enviar confirmação no WhatsApp”.'}`;
+      confirmReadBtn.textContent = 'Leitura confirmada';
+    }
+
+    confirmReadBtn.addEventListener('click', confirmReading);
+
 
     safeSet(0);
   </script>
