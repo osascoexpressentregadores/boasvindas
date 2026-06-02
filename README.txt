@@ -1,9 +1,13 @@
-Gibi Boas-vindas OE - versão mobile legível
+# Gibi online Osasco Express
 
-Correção cirúrgica:
-- mantido layout institucional original;
-- removido atalho para apito final antes da última página;
-- adicionado botão "Leitura concluída" somente na última página;
-- adicionadas setas amarelas laterais para avançar/voltar;
-- mobile prioriza leitura da página, sem encolher a arte até ficar ilegível;
-- animação simples de conclusão no final.
+Arquivo principal: index.html
+
+Regras aplicadas:
+- Fundo branco.
+- Interface sem branco/amarelo como cor de botões/controles.
+- Imagens exibidas inteiras com object-fit: contain.
+- Sem corte de imagem.
+- Mobile-first.
+- Setas laterais, botões, teclado e arraste no celular.
+- Miniaturas navegáveis.
+- Textos leves abaixo da imagem.

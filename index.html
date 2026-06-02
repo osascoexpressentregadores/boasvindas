@@ -1,78 +1,586 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Boas-vindas ao Parceiro Osasco Express | Gibi de Integração</title>
-  <meta name="description" content="Gibi digital institucional de integração da Osasco Express com Kauan, cultura operacional e comunicação de equipe." />
-  <meta name="robots" content="noindex,nofollow" />
-  <meta name="theme-color" content="#061e10" />
-  <link rel="preload" as="image" href="assets/img/01_capa_boas_vindas_ao_parceiro_oe.png" />
-  <link rel="stylesheet" href="assets/css/style.css" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#ffffff">
+  <title>Gibi de Integração | Osasco Express</title>
+  <meta name="description" content="Gibi online de integração do parceiro Osasco Express com navegação mobile, imagens em tela cheia e leitura sem corte.">
+  <style>
+    :root{
+      --bg:#ffffff;
+      --ink:#101114;
+      --muted:#454a50;
+      --line:#d7dbe0;
+      --panel:#eef1f4;
+      --panel-2:#e5e9ee;
+      --black:#07080a;
+      --red:#a31219;
+      --green:#0f5f3a;
+      --blue:#0c3f75;
+      --shadow:0 18px 50px rgba(10,14,20,.22);
+      --radius:24px;
+      --safe-top:env(safe-area-inset-top, 0px);
+      --safe-bottom:env(safe-area-inset-bottom, 0px);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font-family:Arial, Helvetica, sans-serif;}
+    body{overflow-x:hidden}
+    button{font:inherit}
+    .app{
+      min-height:100svh;
+      background:
+        radial-gradient(circle at 10% 4%, rgba(163,18,25,.08), transparent 30%),
+        radial-gradient(circle at 90% 12%, rgba(15,95,58,.08), transparent 34%),
+        linear-gradient(180deg,#ffffff 0%, #f3f5f7 100%);
+    }
+    .topbar{
+      position:fixed;
+      z-index:30;
+      left:12px;
+      right:12px;
+      top:calc(10px + var(--safe-top));
+      height:56px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding:0 12px;
+      border:1px solid rgba(16,17,20,.18);
+      border-radius:18px;
+      background:rgba(238,241,244,.88);
+      backdrop-filter:blur(18px);
+      -webkit-backdrop-filter:blur(18px);
+      box-shadow:0 10px 30px rgba(0,0,0,.12);
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      min-width:0;
+    }
+    .brand-mark{
+      width:36px;
+      height:36px;
+      border-radius:12px;
+      display:grid;
+      place-items:center;
+      background:var(--black);
+      color:#d8dde3;
+      font-weight:900;
+      letter-spacing:-.04em;
+      flex:0 0 auto;
+    }
+    .brand-text{
+      min-width:0;
+      line-height:1.02;
+    }
+    .brand-text strong{
+      display:block;
+      font-size:13px;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+    .brand-text span{
+      display:block;
+      font-size:11px;
+      color:var(--muted);
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+    .counter{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      font-weight:900;
+      color:var(--black);
+      flex:0 0 auto;
+    }
+    .counter b{
+      min-width:54px;
+      text-align:center;
+      padding:8px 9px;
+      border-radius:14px;
+      background:#dfe4e9;
+      border:1px solid rgba(16,17,20,.14);
+    }
+    .progress{
+      position:fixed;
+      z-index:31;
+      left:28px;
+      right:28px;
+      top:calc(74px + var(--safe-top));
+      height:5px;
+      border-radius:999px;
+      background:#d9dde2;
+      overflow:hidden;
+    }
+    .progress span{
+      display:block;
+      height:100%;
+      width:10%;
+      border-radius:999px;
+      background:var(--red);
+      transition:width .28s ease;
+    }
+
+    .reader{
+      min-height:100svh;
+      padding:calc(92px + var(--safe-top)) 0 calc(96px + var(--safe-bottom));
+      display:grid;
+      place-items:center;
+    }
+    .stage{
+      width:min(100vw, 520px);
+      min-height:calc(100svh - 188px - var(--safe-top) - var(--safe-bottom));
+      display:grid;
+      grid-template-rows:minmax(0,1fr) auto;
+      gap:12px;
+      padding:0 10px;
+    }
+    .image-shell{
+      position:relative;
+      min-height:0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:var(--radius);
+      background:#eef1f4;
+      border:1px solid rgba(16,17,20,.14);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      padding:8px;
+    }
+    .page-image{
+      display:block;
+      width:100%;
+      height:100%;
+      max-height:calc(100svh - 290px - var(--safe-top) - var(--safe-bottom));
+      object-fit:contain;
+      object-position:center center;
+      border-radius:18px;
+      background:#dfe4e9;
+      user-select:none;
+      -webkit-user-drag:none;
+    }
+    .arrow{
+      position:fixed;
+      z-index:35;
+      top:50%;
+      transform:translateY(-50%);
+      width:52px;
+      height:74px;
+      border:none;
+      border-radius:18px;
+      background:rgba(7,8,10,.88);
+      color:#d8dde3;
+      display:grid;
+      place-items:center;
+      font-size:54px;
+      line-height:1;
+      cursor:pointer;
+      box-shadow:0 15px 35px rgba(0,0,0,.25);
+      border:1px solid rgba(16,17,20,.18);
+    }
+    .arrow:active{transform:translateY(-50%) scale(.96)}
+    .arrow.prev{left:8px}
+    .arrow.next{right:8px}
+    .info{
+      border-radius:22px;
+      background:rgba(238,241,244,.92);
+      border:1px solid rgba(16,17,20,.14);
+      padding:14px 14px 12px;
+      box-shadow:0 10px 25px rgba(0,0,0,.10);
+      min-height:112px;
+    }
+    .info h1{
+      margin:0 0 6px;
+      font-size:22px;
+      line-height:1.04;
+      letter-spacing:-.03em;
+    }
+    .info p{
+      margin:0;
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.35;
+    }
+    .mobile-actions{
+      display:flex;
+      gap:8px;
+      margin-top:10px;
+    }
+    .btn{
+      border:0;
+      border-radius:16px;
+      background:var(--black);
+      color:#d8dde3;
+      min-height:44px;
+      padding:0 14px;
+      font-weight:900;
+      letter-spacing:.02em;
+      cursor:pointer;
+    }
+    .btn.secondary{
+      background:#dfe4e9;
+      color:var(--ink);
+      border:1px solid rgba(16,17,20,.14);
+    }
+
+    .thumbs-wrap{
+      padding:0 14px 28px;
+      max-width:920px;
+      margin:0 auto;
+    }
+    .thumbs-title{
+      margin:0 0 10px;
+      font-size:18px;
+      letter-spacing:-.02em;
+    }
+    .thumbs{
+      display:flex;
+      overflow-x:auto;
+      gap:10px;
+      padding:4px 2px 12px;
+      scroll-snap-type:x mandatory;
+    }
+    .thumb{
+      flex:0 0 76px;
+      height:112px;
+      border-radius:16px;
+      overflow:hidden;
+      border:2px solid #c8ced5;
+      background:#e9edf1;
+      padding:0;
+      position:relative;
+      cursor:pointer;
+      scroll-snap-align:start;
+    }
+    .thumb.is-active{
+      border-color:var(--red);
+      box-shadow:0 0 0 3px rgba(163,18,25,.16);
+    }
+    .thumb img{
+      width:100%;
+      height:100%;
+      object-fit:contain;
+      background:#dfe4e9;
+      display:block;
+    }
+    .thumb span{
+      position:absolute;
+      left:5px;
+      top:5px;
+      width:24px;
+      height:24px;
+      border-radius:50%;
+      background:var(--black);
+      color:#d8dde3;
+      display:grid;
+      place-items:center;
+      font-size:12px;
+      font-weight:900;
+    }
+
+    .summary{
+      max-width:920px;
+      margin:0 auto;
+      padding:0 14px 36px;
+    }
+    .summary h2{
+      margin:0 0 12px;
+      font-size:24px;
+      letter-spacing:-.04em;
+    }
+    .grid{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:10px;
+    }
+    .card{
+      background:#eef1f4;
+      border:1px solid rgba(16,17,20,.13);
+      border-radius:20px;
+      padding:16px;
+      box-shadow:0 8px 22px rgba(0,0,0,.08);
+    }
+    .card strong{
+      display:block;
+      margin-bottom:5px;
+      font-size:16px;
+    }
+    .card p{
+      margin:0;
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.4;
+    }
+    .back-cover{
+      margin:0 14px 28px;
+      border-radius:28px;
+      background:linear-gradient(135deg, #101114, #153f32 58%, #0c3f75);
+      color:#d8dde3;
+      padding:26px 18px;
+      text-align:center;
+      box-shadow:var(--shadow);
+    }
+    .back-cover h2{
+      margin:0 0 8px;
+      font-size:30px;
+      letter-spacing:-.04em;
+    }
+    .back-cover p{
+      margin:0 auto 14px;
+      max-width:520px;
+      color:#c6ccd3;
+      line-height:1.42;
+    }
+    .chips{
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:center;
+      gap:8px;
+      margin:18px 0;
+    }
+    .chip{
+      background:rgba(216,221,227,.16);
+      border:1px solid rgba(216,221,227,.24);
+      color:#d8dde3;
+      border-radius:999px;
+      padding:9px 12px;
+      font-weight:900;
+      font-size:13px;
+    }
+    .footer{
+      padding:18px 14px calc(22px + var(--safe-bottom));
+      text-align:center;
+      color:var(--muted);
+      font-size:12px;
+      border-top:1px solid var(--line);
+    }
+
+    @media (min-width:760px){
+      .topbar{left:50%;right:auto;width:min(920px,calc(100vw - 40px));transform:translateX(-50%)}
+      .progress{left:50%;right:auto;width:min(860px,calc(100vw - 80px));transform:translateX(-50%)}
+      .stage{width:min(100vw, 620px)}
+      .page-image{max-height:calc(100svh - 270px)}
+      .arrow.prev{left:calc(50% - 395px)}
+      .arrow.next{right:calc(50% - 395px)}
+      .grid{grid-template-columns:repeat(3,1fr)}
+      .thumb{flex-basis:92px;height:136px}
+      .info h1{font-size:26px}
+      .info p{font-size:15px}
+    }
+  </style>
 </head>
 <body>
-  <main class="oe-book" aria-label="Gibi digital de integração da Osasco Express">
-    <div class="bg-crowd" aria-hidden="true"></div>
-    <header class="topbar" aria-label="Cabeçalho do gibi">
+  <main class="app" id="app">
+    <header class="topbar" aria-label="Topo do gibi">
       <div class="brand">
-        <img src="assets/img/logo_osasco_express.png" alt="Osasco Express" />
-        <div>
-          <small>Gibi institucional de integração</small>
-          <strong>Boas-vindas ao parceiro Osasco Express</strong>
+        <div class="brand-mark">OE</div>
+        <div class="brand-text">
+          <strong>Gibi de Integração</strong>
+          <span>Parceiro Osasco Express</span>
         </div>
       </div>
-      <div class="scoreboard" aria-live="polite">
-        <span id="chapterLabel">Capa</span>
-        <b id="pageLabel">01 / 10</b>
-      </div>
+      <div class="counter"><b id="counter">1/10</b></div>
     </header>
 
-    <section class="hero-line" aria-label="Mensagem principal">
-      <span class="cup-pill">Copa OE 2026</span>
-      <h1>Folheie o gibi da operação.</h1>
-      <p>Uma leitura rápida, visual e institucional para entender como jogar junto na rua, no grupo e no app.</p>
-    </section>
+    <div class="progress" aria-hidden="true"><span id="progressBar"></span></div>
 
-    <section class="reader-wrap" aria-label="Leitor do gibi">
-      <button class="nav-arrow prev" id="prevBtn" type="button" aria-label="Página anterior">‹</button>
-      <div class="book-table">
-        <div class="book-shadow" aria-hidden="true"></div>
-        <div class="book" id="book" aria-live="polite">
-          <div class="page-slot left-slot" id="leftSlot" aria-hidden="true"></div>
-          <div class="book-gutter" aria-hidden="true"></div>
-          <div class="page-slot right-slot" id="rightSlot" aria-hidden="true"></div>
+    <section class="reader" aria-label="Leitor do gibi">
+      <div class="stage">
+        <div class="image-shell" id="imageShell">
+          <img id="pageImage" class="page-image" alt="Página do gibi de integração Osasco Express" src="">
         </div>
-      </div>
-      <button class="nav-arrow next" id="nextBtn" type="button" aria-label="Próxima página">›</button>
-    </section>
-
-    <footer class="album-panel" aria-label="Navegação e progresso">
-      <div class="progress-wrap"><span id="progressBar"></span></div>
-      <div class="values"><span>Comunicação</span><i></i><span>Respeito</span><i></i><span>Confiança</span><i></i><span>Orgulho OE</span></div>
-      <nav class="stickers" id="stickers" aria-label="Miniaturas das páginas"></nav>
-      <button class="finish" id="finishBtn" type="button">Fim da leitura</button>
-    </footer>
-
-    <section class="finale" id="finale" aria-hidden="true" role="dialog" aria-labelledby="finalTitle">
-      <div class="finale-bg" data-close></div>
-      <div class="finale-card">
-        <button class="x" data-close type="button" aria-label="Fechar">×</button>
-        <div class="finale-kauan" aria-hidden="true">
-          <img src="assets/img/10_jogue_junto_ate_o_apito_final.png" alt="" />
-        </div>
-        <div class="finale-copy">
-          <span>Apito final</span>
-          <h2 id="finalTitle">Fiuuu! O jogo vai começar.</h2>
-          <p>O Kauan apitou. A torcida está de pé, a loja está pronta, o suporte está no banco e a operação espera gol de placa.</p>
-          <strong>Parceiro bom comunica, confirma, confere e joga junto até o fim.</strong>
-          <div class="finale-actions">
-            <button class="primary" data-close type="button">Missão entendida</button>
-            <button class="secondary" id="restartBtn" type="button">Rever o gibi</button>
+        <article class="info">
+          <h1 id="pageTitle"></h1>
+          <p id="pageText"></p>
+          <div class="mobile-actions">
+            <button class="btn secondary" type="button" id="prevText">Voltar</button>
+            <button class="btn" type="button" id="nextText">Próxima</button>
           </div>
-        </div>
+        </article>
       </div>
     </section>
+
+    <button class="arrow prev" type="button" id="prevBtn" aria-label="Página anterior">‹</button>
+    <button class="arrow next" type="button" id="nextBtn" aria-label="Próxima página">›</button>
+
+    <section class="thumbs-wrap" aria-label="Miniaturas das páginas">
+      <h2 class="thumbs-title">Escolha uma página</h2>
+      <div class="thumbs" id="thumbs"></div>
+    </section>
+
+    <section class="summary" aria-label="Resumo da integração">
+      <h2>O que este gibi ensina</h2>
+      <div class="grid">
+        <div class="card"><strong>Comunicação</strong><p>O grupo da loja é o canal para avisar coleta, rota, código, atraso, retorno e erro no app.</p></div>
+        <div class="card"><strong>Conferência</strong><p>Pedido, comanda, sacola, bebida, endereço, observações e pagamento precisam ser conferidos antes de sair.</p></div>
+        <div class="card"><strong>Código</strong><p>Cada plataforma tem seu próprio código. Código primeiro, entrega depois.</p></div>
+        <div class="card"><strong>Cliente não localizado</strong><p>Tentar contato, mandar foto com comanda no endereço, avisar a loja e aguardar autorização.</p></div>
+        <div class="card"><strong>Suporte</strong><p>Se houver problema, o parceiro não discute. Aciona apoio e segue orientação.</p></div>
+        <div class="card"><strong>Controle</strong><p>Entregas registradas, diária combinada e mais clareza para rodar com previsibilidade.</p></div>
+      </div>
+    </section>
+
+    <section class="back-cover" aria-label="Contracapa">
+      <h2>Missão entendida!</h2>
+      <p>Agora o jogo vai começar. A operação fica melhor quando todo mundo comunica, confere, confirma, respeita e joga junto.</p>
+      <div class="chips">
+        <span class="chip">Comunique</span>
+        <span class="chip">Confira</span>
+        <span class="chip">Confirme</span>
+        <span class="chip">Respeite</span>
+        <span class="chip">Jogue junto</span>
+      </div>
+      <button class="btn" type="button" id="restartBtn">Rever gibi</button>
+    </section>
+
+    <footer class="footer">
+      Osasco Express Serviços Ltda · Entregamos mais que pedidos. Entregamos confiança.
+    </footer>
   </main>
-  <script src="assets/js/main.js"></script>
+
+  <script>
+    const pages = [
+  {
+    "title": "Boas-vindas ao parceiro",
+    "img": "assets/img/01-boas-vindas.png",
+    "text": "Entrada da integração. O parceiro entende que faz parte de uma operação organizada."
+  },
+  {
+    "title": "Você foi convocado",
+    "img": "assets/img/02-voce-foi-convocado.png",
+    "text": "Loja, cliente, suporte, app e rota trabalhando juntos para a entrega acontecer melhor."
+  },
+  {
+    "title": "Pronto para entrar em campo",
+    "img": "assets/img/03-pronto-para-entrar-em-campo.png",
+    "text": "Moto em dia, tanque abastecido, celular carregado e internet ativa antes de iniciar."
+  },
+  {
+    "title": "Grupo é o rádio da operação",
+    "img": "assets/img/04-grupo-radio-operacao.png",
+    "text": "O grupo da loja é canal operacional para avisar coleta, rota, código, atraso, retorno e erro no app."
+  },
+  {
+    "title": "A jogada certa da entrega",
+    "img": "assets/img/05-jogada-certa-entrega.png",
+    "text": "Aceitar, informar o número do pedido, coletar conferido e revisar tudo antes de sair."
+  },
+  {
+    "title": "Código primeiro, entrega depois",
+    "img": "assets/img/06-codigo-primeiro.png",
+    "text": "Cada plataforma tem seu código. Os códigos ficam no grupo da loja e vêm antes da entrega."
+  },
+  {
+    "title": "Cliente não apareceu",
+    "img": "assets/img/07-cliente-nao-apareceu.png",
+    "text": "Tentar contato, registrar prova no endereço, avisar no grupo, ligar na loja e acionar suporte."
+  },
+  {
+    "title": "Precisou de apoio",
+    "img": "assets/img/08-precisou-de-apoio.png",
+    "text": "Se der problema, não discutir. Pedir apoio também faz parte da operação."
+  },
+  {
+    "title": "Respeito também é entrega",
+    "img": "assets/img/09-respeito-tambem-e-entrega.png",
+    "text": "Postura, cuidado com a loja, frente limpa e devolução de maquininha quando houver."
+  },
+  {
+    "title": "Controle total das entregas",
+    "img": "assets/img/10-controle-total-entregas.png",
+    "text": "Entregas registradas, diária combinada, mais clareza e previsibilidade para rodar tranquilo."
+  }
+];
+    let index = 0;
+    let touchStartX = 0;
+    let touchStartY = 0;
+
+    const image = document.getElementById('pageImage');
+    const title = document.getElementById('pageTitle');
+    const text = document.getElementById('pageText');
+    const counter = document.getElementById('counter');
+    const progress = document.getElementById('progressBar');
+    const thumbs = document.getElementById('thumbs');
+
+    function safeSet(i){
+      if(i < 0) i = pages.length - 1;
+      if(i >= pages.length) i = 0;
+      index = i;
+      const p = pages[index];
+      image.src = p.img;
+      image.alt = `Página ${index + 1}: ${p.title}`;
+      title.textContent = p.title;
+      text.textContent = p.text;
+      counter.textContent = `${index + 1}/${pages.length}`;
+      progress.style.width = `${((index + 1) / pages.length) * 100}%`;
+
+      [...document.querySelectorAll('.thumb')].forEach((btn, n) => {
+        btn.classList.toggle('is-active', n === index);
+        if(n === index){
+          btn.setAttribute('aria-current','true');
+        } else {
+          btn.removeAttribute('aria-current');
+        }
+      });
+    }
+
+    function next(){ safeSet(index + 1); }
+    function prev(){ safeSet(index - 1); }
+
+    pages.forEach((p, i) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'thumb';
+      btn.setAttribute('aria-label', `Ir para página ${i + 1}: ${p.title}`);
+      btn.innerHTML = `<img src="${p.img}" alt=""><span>${i + 1}</span>`;
+      btn.addEventListener('click', () => {
+        safeSet(i);
+        window.scrollTo({top:0, behavior:'smooth'});
+      });
+      thumbs.appendChild(btn);
+    });
+
+    document.getElementById('nextBtn').addEventListener('click', next);
+    document.getElementById('prevBtn').addEventListener('click', prev);
+    document.getElementById('nextText').addEventListener('click', next);
+    document.getElementById('prevText').addEventListener('click', prev);
+    document.getElementById('restartBtn').addEventListener('click', () => {
+      safeSet(0);
+      window.scrollTo({top:0, behavior:'smooth'});
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if(e.key === 'ArrowRight') next();
+      if(e.key === 'ArrowLeft') prev();
+    });
+
+    document.getElementById('imageShell').addEventListener('touchstart', (e) => {
+      const t = e.changedTouches[0];
+      touchStartX = t.clientX;
+      touchStartY = t.clientY;
+    }, {passive:true});
+
+    document.getElementById('imageShell').addEventListener('touchend', (e) => {
+      const t = e.changedTouches[0];
+      const dx = t.clientX - touchStartX;
+      const dy = t.clientY - touchStartY;
+      if(Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy)){
+        dx < 0 ? next() : prev();
+      }
+    }, {passive:true});
+
+    // Garante que a imagem seja inteira: sem crop, sem cover.
+    image.style.objectFit = 'contain';
+
+    safeSet(0);
+  </script>
 </body>
 </html>
