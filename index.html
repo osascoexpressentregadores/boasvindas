@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#ffffff">
 <title>Gibi de Integração | Osasco Express</title>
-<meta name="description" content="Gibi online de integração do parceiro Osasco Express. Tela cheia, leitura mobile e confirmação final.">
+<meta name="description" content="Gibi online de integração do parceiro Osasco Express com confirmação de leitura em planilha.">
 <style>
 :root{
   --bg:#ffffff;
@@ -112,7 +112,7 @@ button,a{-webkit-tap-highlight-color:transparent}
   justify-content:center;
 }
 .confirm-kicker{display:inline-flex;align-self:flex-start;gap:7px;align-items:center;padding:7px 10px;border-radius:999px;background:var(--black);color:#d9dee5;font-size:11px;font-weight:900;letter-spacing:.08em;text-transform:uppercase}
-.confirm h1{margin:12px 0 8px;font-size:38px;line-height:.95;letter-spacing:-.06em;color:var(--ink)}
+.confirm h1{margin:12px 0 8px;font-size:36px;line-height:.95;letter-spacing:-.06em;color:var(--ink)}
 .confirm p{margin:0 0 12px;color:var(--muted);font-size:13.5px;line-height:1.32}
 .rules{display:grid;gap:7px;margin:8px 0 12px}
 .rule{display:flex;gap:8px;align-items:flex-start;background:rgba(255,255,255,.72);border:1px solid var(--line);border-radius:15px;padding:8px 9px;font-size:12.2px;line-height:1.22;color:var(--ink)}
@@ -126,7 +126,6 @@ button,a{-webkit-tap-highlight-color:transparent}
 .declare{font-size:11.2px!important;line-height:1.28!important;margin:5px 0 9px!important}
 .confirm-btn{height:50px;width:100%;border:0;border-radius:17px;background:var(--green);color:#d9dee5;font-weight:900;cursor:pointer;box-shadow:0 10px 20px rgba(13,91,56,.18)}
 .confirm-btn:disabled{background:#9aa3ad;color:#f4f6f8;box-shadow:none;cursor:not-allowed}
-.whats{display:none;margin-top:8px;height:48px;width:100%;border-radius:17px;background:var(--black);color:#d9dee5;text-decoration:none;align-items:center;justify-content:center;font-weight:900}
 .receipt{display:none;margin-top:8px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:10px;font-size:11.5px;line-height:1.34;color:var(--ink)}
 
 .side{
@@ -250,8 +249,8 @@ button,a{-webkit-tap-highlight-color:transparent}
       <div id="confirmSlide" class="confirm">
         <div class="confirm-inner">
           <span class="confirm-kicker">Jogador informado</span>
-          <h1>Missão entendida!</h1>
-          <p>Confirme a leitura para registrar que entendeu a integração da operação.</p>
+          <h1>Confirmar leitura</h1>
+          <p>Preencha nome, sobrenome e telefone. Ao confirmar, a leitura será registrada na planilha da operação.</p>
           <div class="rules">
             <div class="rule"><b>✓</b><span>Grupo da loja é canal oficial.</span></div>
             <div class="rule"><b>✓</b><span>Conferência antes de sair da loja.</span></div>
@@ -260,12 +259,11 @@ button,a{-webkit-tap-highlight-color:transparent}
             <div class="rule"><b>✓</b><span>Problema com cliente: não discuta, acione suporte.</span></div>
           </div>
           <div class="status"><span>Telas vistas</span><small id="readCount">0/10</small></div>
-          <div class="field"><label for="partnerName">Nome do parceiro</label><input id="partnerName" placeholder="Digite seu nome" autocomplete="name"></div>
-          <div class="field"><label for="partnerPhone">WhatsApp</label><input id="partnerPhone" placeholder="DDD + número" inputmode="tel" autocomplete="tel"></div>
-          <div class="field"><label for="partnerDoc">Placa ou identificação</label><input id="partnerDoc" placeholder="Opcional" autocomplete="off"></div>
+          <div class="field"><label for="firstName">Nome</label><input id="firstName" placeholder="Nome" autocomplete="given-name" required></div>
+          <div class="field"><label for="lastName">Sobrenome</label><input id="lastName" placeholder="Sobrenome" autocomplete="family-name" required></div>
+          <div class="field"><label for="phone">Telefone</label><input id="phone" placeholder="DDD + número" inputmode="tel" autocomplete="tel" required></div>
           <p class="declare">Declaro que li o gibi e entendi as orientações sobre comunicação, conferência, código, cliente não localizado, suporte, respeito e controle das entregas.</p>
           <button class="confirm-btn" id="confirmBtn" disabled>Leia todas as telas para confirmar</button>
-          <a class="whats" id="whatsBtn" target="_blank" rel="noopener">Enviar confirmação no WhatsApp</a>
           <div class="receipt" id="receipt"></div>
         </div>
       </div>
@@ -291,7 +289,7 @@ button,a{-webkit-tap-highlight-color:transparent}
     </div>
     <div class="footer">
       <div><strong>Osasco Express</strong> · Entregamos mais que pedidos. Entregamos confiança.</div>
-      <div><a href="https://osascoexpress.com.br" target="_blank" rel="noopener">osascoexpress.com.br</a> · <a href="https://wa.me/5511924782555" target="_blank" rel="noopener">(11) 92478-2555</a></div>
+      <div><a href="https://osascoexpress.com.br" target="_blank" rel="noopener">osascoexpress.com.br</a> · <a href="tel:+5511924782555">(11) 92478-2555</a></div>
     </div>
   </div>
 </section>
@@ -301,7 +299,7 @@ button,a{-webkit-tap-highlight-color:transparent}
     <i class="confetti c1"></i><i class="confetti c2"></i><i class="confetti c3"></i><i class="confetti c4"></i>
     <span class="ball">⚽</span>
     <h2>Leitura confirmada!</h2>
-    <p>Jogador informado. Agora é seguir junto com a operação.</p>
+    <p>Jogador informado. A confirmação foi gerada para a planilha.</p>
   </div>
 </div>
 
@@ -359,11 +357,10 @@ const slides = [
   },
   {
     "type": "confirm",
-    "title": "Jogador informado"
+    "title": "Confirmar leitura"
   }
 ];
-const SHEET_WEBHOOK_URL = "";
-const SUPPORT_WHATSAPP = "5511924782555";
+const SHEET_WEBHOOK_URL = ""; // Cole aqui a URL do Web App do Apps Script. Sem isso, não há envio para planilha.
 const totalImages = slides.filter(s => s.type === "image").length;
 let index = 0, sx = 0, sy = 0;
 const viewed = new Set(JSON.parse(localStorage.getItem("oe_gibi_pages_viewed") || "[]"));
@@ -377,14 +374,13 @@ const progress = document.getElementById("progress");
 const readCount = document.getElementById("readCount");
 const confirmBtn = document.getElementById("confirmBtn");
 const receipt = document.getElementById("receipt");
-const whatsBtn = document.getElementById("whatsBtn");
 const victory = document.getElementById("victory");
 
 function updateRead(){
   const ok = viewed.size >= totalImages;
   readCount.textContent = `${viewed.size}/${totalImages}`;
   confirmBtn.disabled = !ok;
-  confirmBtn.textContent = ok ? "Jogador informado: confirmar leitura" : `Leia todas as telas para confirmar (${viewed.size}/${totalImages})`;
+  confirmBtn.textContent = ok ? "Confirmar leitura" : `Leia todas as telas para confirmar (${viewed.size}/${totalImages})`;
 }
 
 function setSlide(i){
@@ -434,19 +430,27 @@ function protocol(){
 }
 
 async function confirmReading(){
-  const nome = document.getElementById("partnerName").value.trim();
-  const whatsapp = document.getElementById("partnerPhone").value.trim();
-  const identificacao = document.getElementById("partnerDoc").value.trim();
+  const nome = document.getElementById("firstName").value.trim();
+  const sobrenome = document.getElementById("lastName").value.trim();
+  const telefone = document.getElementById("phone").value.trim();
 
-  if(!nome || !whatsapp){ alert("Preencha nome e WhatsApp para confirmar."); return; }
-  if(viewed.size < totalImages){ alert("Passe por todas as telas do gibi antes de confirmar."); return; }
+  if(!nome || !sobrenome || !telefone){
+    alert("Preencha nome, sobrenome e telefone para confirmar a leitura.");
+    return;
+  }
+
+  if(viewed.size < totalImages){
+    alert("Passe por todas as telas do gibi antes de confirmar.");
+    return;
+  }
 
   const data = {
     tipo:"confirmacao_leitura_gibi_oe",
     protocolo:protocol(),
     nome,
-    whatsapp,
-    identificacao,
+    sobrenome,
+    telefone,
+    leu:"SIM",
     paginas_vistas:[...viewed].sort((a,b)=>a-b).map(n=>n+1).join(", "),
     total_paginas:totalImages,
     data_iso:new Date().toISOString(),
@@ -456,21 +460,37 @@ async function confirmReading(){
 
   localStorage.setItem("oe_gibi_confirmacao_leitura", JSON.stringify(data));
 
-  if(SHEET_WEBHOOK_URL){
-    try {
-      await fetch(SHEET_WEBHOOK_URL, {method:"POST", mode:"no-cors", headers:{"Content-Type":"application/json"}, body:JSON.stringify(data)});
-    } catch(err) { console.warn("Registro local preservado. Falha no envio à planilha.", err); }
+  confirmBtn.disabled = true;
+  confirmBtn.textContent = "Registrando...";
+
+  if(!SHEET_WEBHOOK_URL){
+    receipt.style.display = "block";
+    receipt.innerHTML = `<strong>Planilha ainda não conectada.</strong><br>Protocolo local: ${data.protocolo}<br>Nome: ${data.nome} ${data.sobrenome}<br>Telefone: ${data.telefone}<br><br>Para gerar a linha automaticamente, cole a URL do Web App em SHEET_WEBHOOK_URL no index.html.`;
+    confirmBtn.disabled = false;
+    confirmBtn.textContent = "Confirmar leitura";
+    return;
   }
 
-  const msg = `CONFIRMAÇÃO DE LEITURA - GIBI OE%0AProtocolo: ${encodeURIComponent(data.protocolo)}%0ANome: ${encodeURIComponent(data.nome)}%0AWhatsApp: ${encodeURIComponent(data.whatsapp)}%0AIdentificação: ${encodeURIComponent(data.identificacao || "Não informado")}%0APáginas vistas: ${encodeURIComponent(data.paginas_vistas)}%0AData: ${encodeURIComponent(new Date().toLocaleString("pt-BR"))}%0ADeclaro que li e entendi as orientações do gibi de integração.`;
-  whatsBtn.href = `https://wa.me/${SUPPORT_WHATSAPP}?text=${msg}`;
-  whatsBtn.style.display = "flex";
-  receipt.style.display = "block";
-  receipt.innerHTML = `<strong>Confirmação registrada.</strong><br>Protocolo: ${data.protocolo}<br>Nome: ${data.nome}<br>Telas vistas: ${data.paginas_vistas}<br><br>${SHEET_WEBHOOK_URL ? "Registro enviado para a planilha." : "Para salvar no controle agora, toque em “Enviar confirmação no WhatsApp”."}`;
+  try {
+    await fetch(SHEET_WEBHOOK_URL, {
+      method:"POST",
+      mode:"no-cors",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify(data)
+    });
 
-  victory.classList.add("show");
-  setTimeout(() => victory.classList.remove("show"), 1800);
-  confirmBtn.textContent = "Leitura confirmada";
+    receipt.style.display = "block";
+    receipt.innerHTML = `<strong>Leitura confirmada.</strong><br>Protocolo: ${data.protocolo}<br>Nome: ${data.nome} ${data.sobrenome}<br>Telefone: ${data.telefone}<br>Leu: SIM`;
+    victory.classList.add("show");
+    setTimeout(() => victory.classList.remove("show"), 1800);
+    confirmBtn.textContent = "Leitura confirmada";
+  } catch(err) {
+    console.error(err);
+    receipt.style.display = "block";
+    receipt.innerHTML = `<strong>Não foi possível enviar para a planilha.</strong><br>O registro local foi preservado neste aparelho. Verifique a URL do Web App.`;
+    confirmBtn.disabled = false;
+    confirmBtn.textContent = "Tentar confirmar novamente";
+  }
 }
 
 confirmBtn.addEventListener("click", confirmReading);

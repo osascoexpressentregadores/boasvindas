@@ -1,55 +1,28 @@
-INTEGRAÇÃO DA CONFIRMAÇÃO DE LEITURA COM GOOGLE SHEETS
+CONFIRMAÇÃO DE LEITURA NA PLANILHA
 
-Planilha informada:
+Planilha:
 https://docs.google.com/spreadsheets/d/1Pw9APJuBv0hVlFKrSqjqtDgGJaknXb1_Gms-I12O2j4/edit
 
-O que já está pronto no index.html:
-- O parceiro precisa passar por todas as páginas.
-- Depois libera o botão "Confirmar que li e entendi".
-- O sistema gera protocolo.
-- Salva localmente no aparelho.
-- Gera botão de WhatsApp.
-- Está preparado para enviar para Google Sheets.
+Nesta versão:
+- Não envia WhatsApp.
+- Campos obrigatórios: Nome, Sobrenome e Telefone.
+- Botão: Confirmar leitura.
+- Envia uma linha para a aba Confirmacoes.
+- Coluna "Leu" recebe SIM.
 
-O que falta fazer no Google:
+Passos:
 1. Abra a planilha.
-2. Clique em Extensões > Apps Script.
-3. Apague o código que estiver lá.
-4. Cole o conteúdo do arquivo:
-   google-apps-script/Code.gs
+2. Vá em Extensões > Apps Script.
+3. Apague o código existente.
+4. Cole o conteúdo de google-apps-script/Code.gs.
 5. Salve.
-6. Execute a função setup uma vez.
-7. Autorize as permissões.
-8. Clique em Implantar > Nova implantação.
-9. Tipo: App da Web.
-10. Executar como: você mesmo.
-11. Quem tem acesso: qualquer pessoa.
-12. Clique em Implantar.
-13. Copie a URL do Web App.
-
-Depois:
-1. Abra o index.html.
-2. Procure esta linha:
-
-const SHEET_WEBHOOK_URL = "";
-
-3. Cole a URL do Web App entre as aspas:
+6. Execute setup uma vez e autorize.
+7. Implantar > Nova implantação > App da Web.
+8. Executar como: você mesmo.
+9. Quem tem acesso: qualquer pessoa.
+10. Implantar e copiar a URL do Web App.
+11. Abra index.html e cole a URL aqui:
 
 const SHEET_WEBHOOK_URL = "COLE_A_URL_AQUI";
 
-4. Salve e publique no GitHub.
-
-Aba que será criada/usada:
-Confirmacoes
-
-Colunas:
-Data/Hora
-Protocolo
-Nome do parceiro
-WhatsApp
-Placa ou identificação
-Páginas vistas
-Total de páginas
-Tipo
-URL de origem
-User Agent
+Depois publique no GitHub.
