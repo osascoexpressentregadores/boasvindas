@@ -1,13 +1,21 @@
-# Gibi online Osasco Express - APP fechado
+# Gibi Online Osasco Express - versão premium mobile
 
-Correção principal:
-- Não existe mais confirmação abaixo do gibi.
-- Não existe seção longa depois do leitor.
-- A confirmação é a tela 11/11 dentro do próprio fluxo.
-- O app ocupa a tela do celular.
-- A pessoa passa pelas telas 1 a 10 e chega na tela 11 para confirmar.
-- As imagens não cortam: object-fit contain.
+Correções aplicadas:
+- Sem miniaturas embaixo.
+- Imagem ocupa o máximo possível da tela do celular.
+- Setas laterais no centro da tela.
+- 11 telas: 10 páginas do gibi + confirmação final.
+- Última tela é a confirmação dentro do fluxo, não abaixo do gibi.
+- Ao confirmar, aparece animação com bola de futebol.
+- Segunda dobra só tem resumo leve, site e telefone.
 - Fundo branco.
-- Sem controles amarelos/brancos que prejudiquem leitura.
-- Página 8 reforçada: Problema com cliente? Não discuta.
-- Para salvar em planilha, cole a URL do Apps Script em SHEET_WEBHOOK_URL.
+- Imagens sem corte: object-fit contain.
+- Página 8: Problema com cliente? Não discuta.
+- Site no rodapé: osascoexpress.com.br
+- Telefone no rodapé: (11) 92478-2555
+
+Para salvar na planilha:
+1. Abra Google Apps Script na planilha.
+2. Cole google-apps-script/Code.gs.
+3. Publique como Web App.
+4. Cole a URL no index.html em SHEET_WEBHOOK_URL.
