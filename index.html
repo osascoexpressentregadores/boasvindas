@@ -1,996 +1,403 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#ffffff">
-  <title>Gibi de Integração | Osasco Express</title>
-  <meta name="description" content="Gibi online de integração do parceiro Osasco Express com navegação mobile, imagens em tela cheia e leitura sem corte.">
-  <style>
-    :root{
-      --bg:#ffffff;
-      --ink:#101114;
-      --muted:#454a50;
-      --line:#d7dbe0;
-      --panel:#eef1f4;
-      --panel-2:#e5e9ee;
-      --black:#07080a;
-      --red:#a31219;
-      --green:#0f5f3a;
-      --blue:#0c3f75;
-      --shadow:0 18px 50px rgba(10,14,20,.22);
-      --radius:24px;
-      --safe-top:env(safe-area-inset-top, 0px);
-      --safe-bottom:env(safe-area-inset-bottom, 0px);
-    }
-    *{box-sizing:border-box}
-    html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font-family:Arial, Helvetica, sans-serif;}
-    body{overflow-x:hidden}
-    button{font:inherit}
-    .app{
-      min-height:100svh;
-      background:
-        radial-gradient(circle at 10% 4%, rgba(163,18,25,.08), transparent 30%),
-        radial-gradient(circle at 90% 12%, rgba(15,95,58,.08), transparent 34%),
-        linear-gradient(180deg,#ffffff 0%, #f3f5f7 100%);
-    }
-    .topbar{
-      position:fixed;
-      z-index:30;
-      left:12px;
-      right:12px;
-      top:calc(10px + var(--safe-top));
-      height:56px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      padding:0 12px;
-      border:1px solid rgba(16,17,20,.18);
-      border-radius:18px;
-      background:rgba(238,241,244,.88);
-      backdrop-filter:blur(18px);
-      -webkit-backdrop-filter:blur(18px);
-      box-shadow:0 10px 30px rgba(0,0,0,.12);
-    }
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      min-width:0;
-    }
-    .brand-mark{
-      width:36px;
-      height:36px;
-      border-radius:12px;
-      display:grid;
-      place-items:center;
-      background:var(--black);
-      color:#d8dde3;
-      font-weight:900;
-      letter-spacing:-.04em;
-      flex:0 0 auto;
-    }
-    .brand-text{
-      min-width:0;
-      line-height:1.02;
-    }
-    .brand-text strong{
-      display:block;
-      font-size:13px;
-      text-transform:uppercase;
-      letter-spacing:.08em;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-    }
-    .brand-text span{
-      display:block;
-      font-size:11px;
-      color:var(--muted);
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-    }
-    .counter{
-      display:flex;
-      align-items:center;
-      gap:8px;
-      font-weight:900;
-      color:var(--black);
-      flex:0 0 auto;
-    }
-    .counter b{
-      min-width:54px;
-      text-align:center;
-      padding:8px 9px;
-      border-radius:14px;
-      background:#dfe4e9;
-      border:1px solid rgba(16,17,20,.14);
-    }
-    .progress{
-      position:fixed;
-      z-index:31;
-      left:28px;
-      right:28px;
-      top:calc(74px + var(--safe-top));
-      height:5px;
-      border-radius:999px;
-      background:#d9dde2;
-      overflow:hidden;
-    }
-    .progress span{
-      display:block;
-      height:100%;
-      width:10%;
-      border-radius:999px;
-      background:var(--red);
-      transition:width .28s ease;
-    }
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#ffffff">
+<title>Gibi de Integração | Osasco Express</title>
+<meta name="description" content="Gibi online de integração Osasco Express com confirmação de leitura na última tela.">
+<style>
+:root{
+  --bg:#ffffff;
+  --ink:#101114;
+  --muted:#3f464d;
+  --soft:#eef1f4;
+  --soft2:#dfe4e9;
+  --line:#c7ced6;
+  --black:#07080a;
+  --green:#0f5f3a;
+  --red:#a31219;
+  --safe-top:env(safe-area-inset-top,0px);
+  --safe-bottom:env(safe-area-inset-bottom,0px);
+}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;background:#fff;color:var(--ink);font-family:Arial,Helvetica,sans-serif;overflow:hidden}
+button,input{font:inherit}
+.app{height:100svh;width:100vw;display:grid;grid-template-rows:auto 1fr auto;background:#fff;overflow:hidden}
 
-    .reader{
-      min-height:100svh;
-      padding:calc(92px + var(--safe-top)) 0 calc(96px + var(--safe-bottom));
-      display:grid;
-      place-items:center;
-    }
-    .stage{
-      width:min(100vw, 520px);
-      min-height:calc(100svh - 188px - var(--safe-top) - var(--safe-bottom));
-      display:grid;
-      grid-template-rows:minmax(0,1fr) auto;
-      gap:12px;
-      padding:0 10px;
-    }
-    .image-shell{
-      position:relative;
-      min-height:0;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      border-radius:var(--radius);
-      background:#eef1f4;
-      border:1px solid rgba(16,17,20,.14);
-      box-shadow:var(--shadow);
-      overflow:hidden;
-      padding:8px;
-    }
-    .page-image{
-      display:block;
-      width:100%;
-      height:100%;
-      max-height:calc(100svh - 290px - var(--safe-top) - var(--safe-bottom));
-      object-fit:contain;
-      object-position:center center;
-      border-radius:18px;
-      background:#dfe4e9;
-      user-select:none;
-      -webkit-user-drag:none;
-    }
-    .arrow{
-      position:fixed;
-      z-index:35;
-      top:50%;
-      transform:translateY(-50%);
-      width:52px;
-      height:74px;
-      border:none;
-      border-radius:18px;
-      background:rgba(7,8,10,.88);
-      color:#d8dde3;
-      display:grid;
-      place-items:center;
-      font-size:54px;
-      line-height:1;
-      cursor:pointer;
-      box-shadow:0 15px 35px rgba(0,0,0,.25);
-      border:1px solid rgba(16,17,20,.18);
-    }
-    .arrow:active{transform:translateY(-50%) scale(.96)}
-    .arrow.prev{left:8px}
-    .arrow.next{right:8px}
-    .info{
-      border-radius:22px;
-      background:rgba(238,241,244,.92);
-      border:1px solid rgba(16,17,20,.14);
-      padding:14px 14px 12px;
-      box-shadow:0 10px 25px rgba(0,0,0,.10);
-      min-height:112px;
-    }
-    .info h1{
-      margin:0 0 6px;
-      font-size:22px;
-      line-height:1.04;
-      letter-spacing:-.03em;
-    }
-    .info p{
-      margin:0;
-      color:var(--muted);
-      font-size:14px;
-      line-height:1.35;
-    }
-    .mobile-actions{
-      display:flex;
-      gap:8px;
-      margin-top:10px;
-    }
-    .btn{
-      border:0;
-      border-radius:16px;
-      background:var(--black);
-      color:#d8dde3;
-      min-height:44px;
-      padding:0 14px;
-      font-weight:900;
-      letter-spacing:.02em;
-      cursor:pointer;
-    }
-    .btn.secondary{
-      background:#dfe4e9;
-      color:var(--ink);
-      border:1px solid rgba(16,17,20,.14);
-    }
+.top{
+  padding:calc(8px + var(--safe-top)) 10px 6px;
+  background:#fff;
+  border-bottom:1px solid var(--line);
+  z-index:5;
+}
+.top-card{
+  height:54px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  padding:0 10px;
+  border-radius:18px;
+  background:var(--soft);
+  border:1px solid var(--line);
+}
+.brand{display:flex;align-items:center;gap:9px;min-width:0}
+.logo{width:36px;height:36px;border-radius:12px;background:var(--black);color:#d8dde3;display:grid;place-items:center;font-weight:900;letter-spacing:-.04em;flex:0 0 auto}
+.brand-text{min-width:0}
+.brand-text strong{display:block;font-size:12px;text-transform:uppercase;letter-spacing:.07em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.brand-text span{display:block;font-size:11px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.counter{font-weight:900;font-size:14px;background:var(--soft2);border:1px solid var(--line);border-radius:14px;padding:8px 9px;min-width:62px;text-align:center;flex:0 0 auto}
+.progress{height:5px;background:var(--soft2);border-radius:999px;overflow:hidden;margin:7px 8px 0}
+.progress span{display:block;height:100%;width:0;background:var(--red);border-radius:999px;transition:width .2s ease}
 
-    .thumbs-wrap{
-      padding:0 14px 28px;
-      max-width:920px;
-      margin:0 auto;
-    }
-    .thumbs-title{
-      margin:0 0 10px;
-      font-size:18px;
-      letter-spacing:-.02em;
-    }
-    .thumbs{
-      display:flex;
-      overflow-x:auto;
-      gap:10px;
-      padding:4px 2px 12px;
-      scroll-snap-type:x mandatory;
-    }
-    .thumb{
-      flex:0 0 76px;
-      height:112px;
-      border-radius:16px;
-      overflow:hidden;
-      border:2px solid #c8ced5;
-      background:#e9edf1;
-      padding:0;
-      position:relative;
-      cursor:pointer;
-      scroll-snap-align:start;
-    }
-    .thumb.is-active{
-      border-color:var(--red);
-      box-shadow:0 0 0 3px rgba(163,18,25,.16);
-    }
-    .thumb img{
-      width:100%;
-      height:100%;
-      object-fit:contain;
-      background:#dfe4e9;
-      display:block;
-    }
-    .thumb span{
-      position:absolute;
-      left:5px;
-      top:5px;
-      width:24px;
-      height:24px;
-      border-radius:50%;
-      background:var(--black);
-      color:#d8dde3;
-      display:grid;
-      place-items:center;
-      font-size:12px;
-      font-weight:900;
-    }
+.viewer{min-height:0;position:relative;display:grid;grid-template-rows:minmax(0,1fr) auto;gap:7px;padding:8px 8px 0;background:#fff}
+.artbox{
+  min-height:0;
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:var(--soft);
+  border:1px solid var(--line);
+  border-radius:22px;
+  overflow:hidden;
+  padding:6px;
+}
+.page-img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center center;
+  display:block;
+  background:var(--soft2);
+  border-radius:16px;
+  -webkit-user-drag:none;
+  user-select:none;
+}
+.confirm-slide{
+  width:100%;
+  height:100%;
+  display:none;
+  overflow:auto;
+  background:var(--soft);
+  border-radius:16px;
+  padding:12px;
+}
+.confirm-card{
+  min-height:100%;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:22px;
+  padding:16px 14px;
+  color:var(--ink);
+}
+.confirm-card h1{margin:0 0 8px;font-size:32px;line-height:.98;letter-spacing:-.05em;color:var(--ink)}
+.confirm-card p{margin:0 0 10px;color:var(--muted);font-size:13.5px;line-height:1.34}
+.checks{display:grid;gap:7px;margin:9px 0 11px}
+.check{display:flex;gap:8px;align-items:flex-start;background:var(--soft);border:1px solid var(--line);border-radius:14px;padding:8px;font-size:12.5px;line-height:1.22;color:var(--ink)}
+.check b{width:21px;height:21px;border-radius:50%;background:var(--green);color:#d8dde3;display:grid;place-items:center;flex:0 0 auto;font-size:12px}
+.read-line{display:flex;justify-content:space-between;gap:8px;background:var(--soft2);border:1px solid var(--line);border-radius:14px;padding:10px;margin:8px 0 10px;font-weight:900;font-size:13px}
+.read-line small{color:var(--muted);font-weight:900}
+.field{margin-bottom:8px}
+.field label{display:block;font-size:10.5px;font-weight:900;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:0 0 4px}
+.field input{width:100%;height:44px;border:1px solid #b8c0ca;border-radius:14px;background:#fff;color:var(--ink);padding:0 11px;font-weight:800;outline:none}
+.field input:focus{border-color:var(--black);box-shadow:0 0 0 3px rgba(16,17,20,.09)}
+.declare{font-size:11.5px!important;line-height:1.3!important;margin:5px 0 9px!important}
+.confirm-btn{width:100%;height:50px;border:0;border-radius:16px;background:var(--green);color:#d8dde3;font-weight:900;cursor:pointer}
+.confirm-btn:disabled{background:#9aa3ad;color:#f4f6f8;cursor:not-allowed}
+.whats{margin-top:8px;width:100%;height:48px;border-radius:16px;background:var(--black);color:#d8dde3;text-decoration:none;display:none;align-items:center;justify-content:center;font-weight:900}
+.receipt{display:none;margin-top:8px;background:var(--soft2);border:1px solid var(--line);border-radius:14px;padding:10px;font-size:11.5px;line-height:1.34;color:var(--ink)}
 
-    .summary{
-      max-width:920px;
-      margin:0 auto;
-      padding:0 14px 36px;
-    }
-    .summary h2{
-      margin:0 0 12px;
-      font-size:24px;
-      letter-spacing:-.04em;
-    }
-    .grid{
-      display:grid;
-      grid-template-columns:1fr;
-      gap:10px;
-    }
-    .card{
-      background:#eef1f4;
-      border:1px solid rgba(16,17,20,.13);
-      border-radius:20px;
-      padding:16px;
-      box-shadow:0 8px 22px rgba(0,0,0,.08);
-    }
-    .card strong{
-      display:block;
-      margin-bottom:5px;
-      font-size:16px;
-    }
-    .card p{
-      margin:0;
-      color:var(--muted);
-      font-size:14px;
-      line-height:1.4;
-    }
-    .back-cover{
-      margin:0 14px 28px;
-      border-radius:28px;
-      background:linear-gradient(135deg, #101114, #153f32 58%, #0c3f75);
-      color:#d8dde3;
-      padding:26px 18px;
-      text-align:center;
-      box-shadow:var(--shadow);
-    }
-    .back-cover h2{
-      margin:0 0 8px;
-      font-size:30px;
-      letter-spacing:-.04em;
-    }
-    .back-cover p{
-      margin:0 auto 14px;
-      max-width:520px;
-      color:#c6ccd3;
-      line-height:1.42;
-    }
-    .chips{
-      display:flex;
-      flex-wrap:wrap;
-      justify-content:center;
-      gap:8px;
-      margin:18px 0;
-    }
-    .chip{
-      background:rgba(216,221,227,.16);
-      border:1px solid rgba(216,221,227,.24);
-      color:#d8dde3;
-      border-radius:999px;
-      padding:9px 12px;
-      font-weight:900;
-      font-size:13px;
-    }
-    .footer{
-      padding:18px 14px calc(22px + var(--safe-bottom));
-      text-align:center;
-      color:var(--muted);
-      font-size:12px;
-      border-top:1px solid var(--line);
-    }
+.caption{
+  min-height:82px;
+  background:var(--soft);
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:10px 12px;
+}
+.caption h2{margin:0 0 4px;font-size:18px;line-height:1.03;letter-spacing:-.03em;color:var(--ink)}
+.caption p{margin:0;color:var(--muted);font-size:12.5px;line-height:1.3}
 
-    @media (min-width:760px){
-      .topbar{left:50%;right:auto;width:min(920px,calc(100vw - 40px));transform:translateX(-50%)}
-      .progress{left:50%;right:auto;width:min(860px,calc(100vw - 80px));transform:translateX(-50%)}
-      .stage{width:min(100vw, 620px)}
-      .page-image{max-height:calc(100svh - 270px)}
-      .arrow.prev{left:calc(50% - 395px)}
-      .arrow.next{right:calc(50% - 395px)}
-      .grid{grid-template-columns:repeat(3,1fr)}
-      .thumb{flex-basis:92px;height:136px}
-      .info h1{font-size:26px}
-      .info p{font-size:15px}
-    }
+.nav{
+  padding:7px 8px calc(8px + var(--safe-bottom));
+  background:#fff;
+  border-top:1px solid var(--line);
+  display:grid;
+  grid-template-columns:48px 1fr 48px;
+  gap:8px;
+  align-items:center;
+}
+.nav-btn{height:48px;border:0;border-radius:16px;background:var(--black);color:#d8dde3;font-weight:900;font-size:30px;line-height:1;cursor:pointer}
+.thumbs{min-width:0;display:flex;gap:7px;overflow-x:auto;padding:2px;scroll-snap-type:x mandatory}
+.thumb{flex:0 0 48px;height:48px;border-radius:13px;border:2px solid var(--line);background:var(--soft);padding:0;overflow:hidden;position:relative;cursor:pointer;scroll-snap-align:center}
+.thumb.active{border-color:var(--red);box-shadow:0 0 0 2px rgba(163,18,25,.14)}
+.thumb img{width:100%;height:100%;object-fit:contain;background:var(--soft2);display:block}
+.thumb.final{display:grid;place-items:center;background:#fff;color:var(--ink);font-size:9px;font-weight:900;line-height:1.05;text-align:center;padding:3px}
+.thumb span{position:absolute;left:3px;top:3px;width:16px;height:16px;border-radius:50%;background:var(--black);color:#d8dde3;display:grid;place-items:center;font-size:9px;font-weight:900}
 
-    .confirm-section{
-      max-width:920px;
-      margin:0 auto 34px;
-      padding:0 14px;
-    }
-    .confirm-box{
-      background:#eef1f4;
-      border:1px solid rgba(16,17,20,.14);
-      border-radius:28px;
-      box-shadow:var(--shadow);
-      padding:22px 16px;
-    }
-    .confirm-box h2{
-      margin:0 0 8px;
-      font-size:28px;
-      line-height:1.04;
-      letter-spacing:-.04em;
-      color:var(--ink);
-    }
-    .confirm-box p{
-      margin:0 0 14px;
-      color:var(--muted);
-      line-height:1.42;
-      font-size:14px;
-    }
-    .read-status{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      padding:12px;
-      border-radius:18px;
-      background:#dfe4e9;
-      border:1px solid rgba(16,17,20,.12);
-      margin:14px 0;
-      font-weight:900;
-      color:var(--ink);
-    }
-    .read-status small{
-      color:var(--muted);
-      font-weight:700;
-    }
-    .status-dot{
-      width:14px;
-      height:14px;
-      border-radius:50%;
-      background:var(--red);
-      box-shadow:0 0 0 4px rgba(163,18,25,.12);
-      flex:0 0 auto;
-    }
-    .read-status.is-complete .status-dot{
-      background:var(--green);
-      box-shadow:0 0 0 4px rgba(15,95,58,.13);
-    }
-    .field-grid{
-      display:grid;
-      grid-template-columns:1fr;
-      gap:10px;
-      margin:14px 0;
-    }
-    .field label{
-      display:block;
-      font-size:12px;
-      font-weight:900;
-      text-transform:uppercase;
-      letter-spacing:.06em;
-      color:var(--muted);
-      margin:0 0 6px;
-    }
-    .field input{
-      width:100%;
-      min-height:50px;
-      border-radius:16px;
-      border:1px solid #c7ced6;
-      background:#ffffff;
-      color:var(--ink);
-      padding:0 13px;
-      font:700 16px Arial, Helvetica, sans-serif;
-      outline:none;
-    }
-    .field input:focus{
-      border-color:var(--black);
-      box-shadow:0 0 0 3px rgba(16,17,20,.10);
-    }
-    .confirm-actions{
-      display:flex;
-      flex-direction:column;
-      gap:9px;
-      margin-top:12px;
-    }
-    .btn.confirm{
-      width:100%;
-      min-height:54px;
-      border-radius:18px;
-      background:var(--green);
-      color:#d8dde3;
-    }
-    .btn.confirm:disabled{
-      background:#aab2bb;
-      color:#f3f5f7;
-      cursor:not-allowed;
-    }
-    .btn.whats{
-      width:100%;
-      min-height:52px;
-      border-radius:18px;
-      background:var(--black);
-      color:#d8dde3;
-      text-decoration:none;
-      display:none;
-      align-items:center;
-      justify-content:center;
-      font-weight:900;
-    }
-    .receipt{
-      display:none;
-      margin-top:14px;
-      padding:14px;
-      border-radius:18px;
-      background:#dfe4e9;
-      border:1px solid rgba(16,17,20,.13);
-      color:var(--ink);
-      font-size:13px;
-      line-height:1.45;
-    }
-    .receipt strong{
-      display:block;
-      font-size:15px;
-      margin-bottom:4px;
-    }
-    @media (min-width:760px){
-      .field-grid{grid-template-columns:repeat(3,1fr)}
-      .confirm-actions{flex-direction:row}
-      .btn.confirm,.btn.whats{width:auto;flex:1}
-    }
-
-
-    .story-map{
-      max-width:920px;
-      margin:0 auto 24px;
-      padding:0 14px;
-    }
-    .story-box{
-      background:#eef1f4;
-      border:1px solid rgba(16,17,20,.14);
-      border-radius:28px;
-      padding:18px 16px;
-      box-shadow:0 10px 28px rgba(0,0,0,.08);
-    }
-    .story-box h2{
-      margin:0 0 10px;
-      font-size:24px;
-      letter-spacing:-.04em;
-    }
-    .story-list{
-      display:grid;
-      grid-template-columns:1fr;
-      gap:8px;
-      margin:0;
-      padding:0;
-      list-style:none;
-    }
-    .story-list li{
-      display:flex;
-      gap:10px;
-      align-items:flex-start;
-      background:#dfe4e9;
-      border:1px solid rgba(16,17,20,.10);
-      border-radius:16px;
-      padding:10px 11px;
-      color:var(--ink);
-      line-height:1.28;
-      font-size:14px;
-    }
-    .story-list b{
-      flex:0 0 28px;
-      width:28px;
-      height:28px;
-      border-radius:50%;
-      background:var(--black);
-      color:#d8dde3;
-      display:grid;
-      place-items:center;
-      font-size:13px;
-    }
-    @media (min-width:760px){
-      .story-list{grid-template-columns:repeat(2,1fr)}
-    }
-
-  </style>
+@media (min-width:760px){
+  .app{max-width:620px;margin:0 auto;border-left:1px solid var(--line);border-right:1px solid var(--line)}
+  body{background:#f4f6f8}
+  .caption h2{font-size:21px}
+  .caption p{font-size:13.5px}
+}
+</style>
 </head>
 <body>
-  <main class="app" id="app">
-    <header class="topbar" aria-label="Topo do gibi">
+<main class="app">
+  <header class="top">
+    <div class="top-card">
       <div class="brand">
-        <div class="brand-mark">OE</div>
-        <div class="brand-text">
-          <strong>Gibi de Integração</strong>
-          <span>Parceiro Osasco Express</span>
-        </div>
+        <div class="logo">OE</div>
+        <div class="brand-text"><strong>Gibi de Integração</strong><span>Parceiro Osasco Express</span></div>
       </div>
-      <div class="counter"><b id="counter">1/10</b></div>
-    </header>
+      <div class="counter" id="counter">1/11</div>
+    </div>
+    <div class="progress"><span id="progress"></span></div>
+  </header>
 
-    <div class="progress" aria-hidden="true"><span id="progressBar"></span></div>
+  <section class="viewer">
+    <div class="artbox" id="touchArea">
+      <img id="pageImg" class="page-img" src="" alt="">
+      <div id="confirmSlide" class="confirm-slide">
+        <div class="confirm-card">
+          <h1>Missão entendida!</h1>
+          <p>Última tela. Confirme a leitura para registrar que entendeu a integração.</p>
 
-    <section class="reader" aria-label="Leitor do gibi">
-      <div class="stage">
-        <div class="image-shell" id="imageShell">
-          <img id="pageImage" class="page-image" alt="Página do gibi de integração Osasco Express" src="">
-        </div>
-        <article class="info">
-          <h1 id="pageTitle"></h1>
-          <p id="pageText"></p>
-          <div class="mobile-actions">
-            <button class="btn secondary" type="button" id="prevText">Voltar</button>
-            <button class="btn" type="button" id="nextText">Próxima</button>
+          <div class="checks">
+            <div class="check"><b>✓</b><span>Grupo da loja é canal oficial da operação.</span></div>
+            <div class="check"><b>✓</b><span>Conferir pedido, comanda, sacola, bebida, endereço e observações antes de sair.</span></div>
+            <div class="check"><b>✓</b><span>Código primeiro, entrega depois.</span></div>
+            <div class="check"><b>✓</b><span>Cliente não apareceu: foto com comanda no endereço, grupo, loja, suporte e autorização.</span></div>
+            <div class="check"><b>✓</b><span>Problema com cliente: não discutir, manter calma e acionar suporte.</span></div>
           </div>
-        </article>
-      </div>
-    </section>
 
-    <button class="arrow prev" type="button" id="prevBtn" aria-label="Página anterior">‹</button>
-    <button class="arrow next" type="button" id="nextBtn" aria-label="Próxima página">›</button>
+          <div class="read-line"><span>Telas lidas</span><small id="readCount">0/10</small></div>
 
+          <div class="field"><label for="partnerName">Nome do parceiro</label><input id="partnerName" placeholder="Digite seu nome" autocomplete="name"></div>
+          <div class="field"><label for="partnerPhone">WhatsApp</label><input id="partnerPhone" placeholder="DDD + número" inputmode="tel" autocomplete="tel"></div>
+          <div class="field"><label for="partnerDoc">Placa ou identificação</label><input id="partnerDoc" placeholder="Opcional" autocomplete="off"></div>
 
-    <section class="story-map" aria-label="Mapa da história">
-      <div class="story-box">
-        <h2>Mapa da história completa</h2>
-        <ul class="story-list">
-          <li><b>1</b><span>Boas-vindas e entrada do parceiro na operação.</span></li>
-          <li><b>2</b><span>Loja, cliente, suporte, app e rota como time.</span></li>
-          <li><b>3</b><span>Preparação: moto, tanque, celular e internet.</span></li>
-          <li><b>4</b><span>Grupo da loja como canal oficial da operação.</span></li>
-          <li><b>5</b><span>Aceitar, informar número, coletar e conferir antes de sair.</span></li>
-          <li><b>6</b><span>Código primeiro: cada plataforma tem seu código no grupo da loja.</span></li>
-          <li><b>7</b><span>Cliente não apareceu: contato, foto, grupo, loja, suporte e autorização.</span></li>
-          <li><b>8</b><span>Problema com cliente: não discuta, explique com calma e chame suporte.</span></li>
-          <li><b>9</b><span>Respeito com loja, frente limpa, postura e maquininha quando houver.</span></li>
-          <li><b>10</b><span>Controle das entregas, diária combinada, clareza e missão entendida.</span></li>
-        </ul>
-      </div>
-    </section>
+          <p class="declare">Declaro que li as telas do gibi e entendi as orientações sobre grupo da loja, conferência, código de entrega, cliente não localizado, não discutir com cliente, suporte, respeito e controle das entregas.</p>
 
-    <section class="thumbs-wrap" aria-label="Miniaturas das páginas">
-      <h2 class="thumbs-title">Escolha uma página</h2>
-      <div class="thumbs" id="thumbs"></div>
-    </section>
-
-    <section class="summary" aria-label="Resumo da integração">
-      <h2>O que este gibi ensina</h2>
-      <div class="grid">
-        <div class="card"><strong>Comunicação</strong><p>O grupo da loja é o canal para avisar coleta, rota, código, atraso, retorno e erro no app.</p></div>
-        <div class="card"><strong>Conferência</strong><p>Pedido, comanda, sacola, bebida, endereço, observações e pagamento precisam ser conferidos antes de sair.</p></div>
-        <div class="card"><strong>Código</strong><p>Cada plataforma tem seu próprio código. Código primeiro, entrega depois.</p></div>
-        <div class="card"><strong>Cliente não localizado</strong><p>Tentar contato, mandar foto com comanda no endereço, avisar a loja e aguardar autorização.</p></div>
-        <div class="card"><strong>Não discuta com o cliente</strong><p>Se houver problema, o parceiro mantém a calma, explica que vai acionar o suporte e segue orientação.</p></div>
-        <div class="card"><strong>Controle</strong><p>Entregas registradas, diária combinada e mais clareza para rodar com previsibilidade.</p></div>
-      </div>
-    </section>
-
-    <section class="back-cover" aria-label="Contracapa">
-      <h2>Missão entendida!</h2>
-      <p>Agora o jogo vai começar. A operação fica melhor quando todo mundo comunica, confere, confirma, respeita e joga junto.</p>
-      <div class="chips">
-        <span class="chip">Comunique</span>
-        <span class="chip">Confira</span>
-        <span class="chip">Confirme</span>
-        <span class="chip">Respeite</span>
-        <span class="chip">Jogue junto</span>
-      </div>
-      <button class="btn" type="button" id="restartBtn">Rever gibi</button>
-    </section>
-
-
-    <section class="confirm-section" aria-label="Confirmação de leitura">
-      <div class="confirm-box">
-        <h2>Confirmação de leitura</h2>
-        <p>Depois de ler todas as páginas, o parceiro confirma que entendeu as orientações principais do gibi de integração.</p>
-
-        <div class="read-status" id="readStatus">
-          <span><span class="status-dot" aria-hidden="true"></span> Leitura das páginas</span>
-          <small id="readCount">0/10 vistas</small>
+          <button class="confirm-btn" id="confirmBtn" disabled>Leia todas as telas para confirmar</button>
+          <a class="whats" id="whatsBtn" target="_blank" rel="noopener">Enviar confirmação no WhatsApp</a>
+          <div class="receipt" id="receipt"></div>
         </div>
-
-        <div class="field-grid">
-          <div class="field">
-            <label for="partnerName">Nome do parceiro</label>
-            <input id="partnerName" autocomplete="name" placeholder="Digite seu nome">
-          </div>
-          <div class="field">
-            <label for="partnerPhone">WhatsApp</label>
-            <input id="partnerPhone" inputmode="tel" autocomplete="tel" placeholder="DDD + número">
-          </div>
-          <div class="field">
-            <label for="partnerDoc">Placa ou identificação</label>
-            <input id="partnerDoc" autocomplete="off" placeholder="Opcional">
-          </div>
-        </div>
-
-        <p><strong>Declaração:</strong> li as páginas do gibi de integração e entendi as orientações sobre grupo da loja, conferência, código de entrega, cliente não localizado, não discutir com cliente, suporte, respeito e controle das entregas.</p>
-
-        <div class="confirm-actions">
-          <button class="btn confirm" type="button" id="confirmReadBtn" disabled>Confirmar que li e entendi</button>
-          <a class="btn whats" id="whatsConfirm" target="_blank" rel="noopener">Enviar confirmação no WhatsApp</a>
-        </div>
-
-        <div class="receipt" id="receiptBox"></div>
       </div>
-    </section>
+    </div>
 
-    <footer class="footer">
-      Osasco Express Serviços Ltda · Entregamos mais que pedidos. Entregamos confiança.
-    </footer>
-  </main>
+    <article class="caption">
+      <h2 id="title"></h2>
+      <p id="text"></p>
+    </article>
+  </section>
 
-  <script>
-    const pages = [
+  <nav class="nav" aria-label="Navegação do gibi">
+    <button class="nav-btn" id="prevBtn" type="button" aria-label="Tela anterior">‹</button>
+    <div class="thumbs" id="thumbs"></div>
+    <button class="nav-btn" id="nextBtn" type="button" aria-label="Próxima tela">›</button>
+  </nav>
+</main>
+
+<script>
+const slides = [
   {
+    "type": "image",
     "title": "Boas-vindas ao parceiro",
     "img": "assets/img/01-boas-vindas.png",
     "text": "Entrada da integração. O parceiro entende que faz parte de uma operação organizada."
   },
   {
+    "type": "image",
     "title": "Você foi convocado",
     "img": "assets/img/02-voce-foi-convocado.png",
     "text": "Loja, cliente, suporte, app e rota trabalhando juntos para a entrega acontecer melhor."
   },
   {
+    "type": "image",
     "title": "Pronto para entrar em campo",
     "img": "assets/img/03-pronto-para-entrar-em-campo.png",
     "text": "Moto em dia, tanque abastecido, celular carregado e internet ativa antes de iniciar."
   },
   {
+    "type": "image",
     "title": "Grupo é o rádio da operação",
     "img": "assets/img/04-grupo-radio-operacao.png",
-    "text": "O grupo da loja é canal operacional para avisar coleta, rota, código, atraso, retorno e erro no app."
+    "text": "Grupo da loja é canal operacional para coleta, rota, código, atraso, retorno e erro no app."
   },
   {
+    "type": "image",
     "title": "A jogada certa da entrega",
     "img": "assets/img/05-jogada-certa-entrega.png",
     "text": "Aceitar, informar o número do pedido, coletar conferido e revisar tudo antes de sair."
   },
   {
+    "type": "image",
     "title": "Código primeiro, entrega depois",
     "img": "assets/img/06-codigo-primeiro.png",
     "text": "Cada plataforma tem seu código. Os códigos ficam no grupo da loja e vêm antes da entrega."
   },
   {
+    "type": "image",
     "title": "Cliente não apareceu",
     "img": "assets/img/07-cliente-nao-apareceu.png",
-    "text": "Tentar contato, registrar prova no endereço, avisar no grupo, ligar na loja e acionar suporte."
+    "text": "Contato pelo app, campainha/interfone, buzina educada, foto com comanda no endereço, grupo, loja, suporte e autorização."
   },
   {
+    "type": "image",
     "title": "Problema com cliente? Não discuta",
     "img": "assets/img/08-precisou-de-apoio.png",
-    "text": "Se o cliente reclamar ou houver conflito: não discuta, explique com calma que vai acionar o suporte e siga a orientação. Se não conseguir seguir, avise no grupo."
+    "text": "Se houver conflito: não discuta, explique com calma que vai acionar o suporte e siga a orientação."
   },
   {
+    "type": "image",
     "title": "Respeito também é entrega",
     "img": "assets/img/09-respeito-tambem-e-entrega.png",
     "text": "Postura, cuidado com a loja, frente limpa e devolução de maquininha quando houver."
   },
   {
+    "type": "image",
     "title": "Controle total das entregas",
     "img": "assets/img/10-controle-total-entregas.png",
     "text": "Entregas registradas, diária combinada, mais clareza e previsibilidade para rodar tranquilo."
+  },
+  {
+    "type": "confirm",
+    "title": "Missão entendida",
+    "text": "Confirme a leitura para registrar que entendeu a integração."
   }
 ];
-    let index = 0;
-    let touchStartX = 0;
-    let touchStartY = 0;
+const SHEET_WEBHOOK_URL = ""; // Cole aqui a URL do Web App do Apps Script para salvar na planilha.
+const SUPPORT_WHATSAPP = "5511924782555";
+const imageSlidesTotal = slides.filter(s => s.type === "image").length;
+const viewed = new Set(JSON.parse(localStorage.getItem("oe_gibi_pages_viewed") || "[]"));
+let index = 0;
+let sx = 0, sy = 0;
 
-    const image = document.getElementById('pageImage');
-    const title = document.getElementById('pageTitle');
-    const text = document.getElementById('pageText');
-    const counter = document.getElementById('counter');
-    const progress = document.getElementById('progressBar');
-    const thumbs = document.getElementById('thumbs');
+const pageImg = document.getElementById("pageImg");
+const confirmSlide = document.getElementById("confirmSlide");
+const title = document.getElementById("title");
+const text = document.getElementById("text");
+const counter = document.getElementById("counter");
+const progress = document.getElementById("progress");
+const thumbs = document.getElementById("thumbs");
+const readCount = document.getElementById("readCount");
+const confirmBtn = document.getElementById("confirmBtn");
+const receipt = document.getElementById("receipt");
+const whatsBtn = document.getElementById("whatsBtn");
 
-    function safeSet(i){
-      if(i < 0) i = pages.length - 1;
-      if(i >= pages.length) i = 0;
-      index = i;
-      const p = pages[index];
-      image.src = p.img;
-      image.alt = `Página ${index + 1}: ${p.title}`;
-      title.textContent = p.title;
-      text.textContent = p.text;
-      counter.textContent = `${index + 1}/${pages.length}`;
-      progress.style.width = `${((index + 1) / pages.length) * 100}%`;
+function updateRead(){
+  const complete = viewed.size >= imageSlidesTotal;
+  readCount.textContent = `${viewed.size}/${imageSlidesTotal}`;
+  confirmBtn.disabled = !complete;
+  confirmBtn.textContent = complete ? "Confirmar que li e entendi" : `Leia todas as telas para confirmar (${viewed.size}/${imageSlidesTotal})`;
+}
 
-      viewedPages.add(index);
-      localStorage.setItem('oe_gibi_pages_viewed', JSON.stringify(Array.from(viewedPages)));
-      if(typeof updateReadStatus === 'function') updateReadStatus();
+function setSlide(i){
+  if(i < 0) i = slides.length - 1;
+  if(i >= slides.length) i = 0;
+  index = i;
+  const s = slides[index];
 
-      [...document.querySelectorAll('.thumb')].forEach((btn, n) => {
-        btn.classList.toggle('is-active', n === index);
-        if(n === index){
-          btn.setAttribute('aria-current','true');
-        } else {
-          btn.removeAttribute('aria-current');
-        }
-      });
+  if(s.type === "image"){
+    pageImg.style.display = "block";
+    confirmSlide.style.display = "none";
+    pageImg.src = s.img;
+    pageImg.alt = `Tela ${index + 1}: ${s.title}`;
+    viewed.add(index);
+    localStorage.setItem("oe_gibi_pages_viewed", JSON.stringify([...viewed]));
+  } else {
+    pageImg.style.display = "none";
+    confirmSlide.style.display = "block";
+  }
+
+  title.textContent = s.title;
+  text.textContent = s.text;
+  counter.textContent = `${index + 1}/${slides.length}`;
+  progress.style.width = `${((index + 1) / slides.length) * 100}%`;
+  updateRead();
+
+  document.querySelectorAll(".thumb").forEach((b,n)=>b.classList.toggle("active", n === index));
+  const active = document.querySelector(".thumb.active");
+  if(active) active.scrollIntoView({behavior:"smooth", inline:"center", block:"nearest"});
+}
+
+function next(){ setSlide(index + 1); }
+function prev(){ setSlide(index - 1); }
+
+slides.forEach((s,i)=>{
+  const b = document.createElement("button");
+  b.type = "button";
+  b.className = "thumb" + (s.type === "confirm" ? " final" : "");
+  b.setAttribute("aria-label", `Ir para tela ${i+1}`);
+  b.innerHTML = s.type === "image" ? `<img src="${s.img}" alt=""><span>${i+1}</span>` : `<span>${i+1}</span>CONFIRMAR`;
+  b.addEventListener("click",()=>setSlide(i));
+  thumbs.appendChild(b);
+});
+
+document.getElementById("nextBtn").addEventListener("click", next);
+document.getElementById("prevBtn").addEventListener("click", prev);
+document.addEventListener("keydown", e => { if(e.key === "ArrowRight") next(); if(e.key === "ArrowLeft") prev(); });
+
+document.getElementById("touchArea").addEventListener("touchstart", e => {
+  const t = e.changedTouches[0]; sx = t.clientX; sy = t.clientY;
+}, {passive:true});
+document.getElementById("touchArea").addEventListener("touchend", e => {
+  const t = e.changedTouches[0]; const dx = t.clientX - sx; const dy = t.clientY - sy;
+  if(Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy)) dx < 0 ? next() : prev();
+}, {passive:true});
+
+function protocol(){
+  const d = new Date(); const p = n => String(n).padStart(2,"0");
+  return `OE-${d.getFullYear()}${p(d.getMonth()+1)}${p(d.getDate())}-${p(d.getHours())}${p(d.getMinutes())}${p(d.getSeconds())}`;
+}
+
+async function confirmReading(){
+  const nome = document.getElementById("partnerName").value.trim();
+  const whatsapp = document.getElementById("partnerPhone").value.trim();
+  const identificacao = document.getElementById("partnerDoc").value.trim();
+
+  if(!nome || !whatsapp){ alert("Preencha nome e WhatsApp para confirmar."); return; }
+  if(viewed.size < imageSlidesTotal){ alert("Passe por todas as telas do gibi antes de confirmar."); return; }
+
+  const data = {
+    tipo:"confirmacao_leitura_gibi_oe",
+    protocolo:protocol(),
+    nome,
+    whatsapp,
+    identificacao,
+    paginas_vistas:[...viewed].sort((a,b)=>a-b).map(n=>n+1).join(", "),
+    total_paginas:imageSlidesTotal,
+    data_iso:new Date().toISOString(),
+    user_agent:navigator.userAgent,
+    url:location.href
+  };
+
+  localStorage.setItem("oe_gibi_confirmacao_leitura", JSON.stringify(data));
+
+  if(SHEET_WEBHOOK_URL){
+    try {
+      await fetch(SHEET_WEBHOOK_URL, {method:"POST", mode:"no-cors", headers:{"Content-Type":"application/json"}, body:JSON.stringify(data)});
+    } catch(err) {
+      console.warn("Registro local preservado. Falha no envio à planilha.", err);
     }
+  }
 
-    function next(){ safeSet(index + 1); }
-    function prev(){ safeSet(index - 1); }
+  const msg = `CONFIRMAÇÃO DE LEITURA - GIBI OE%0AProtocolo: ${encodeURIComponent(data.protocolo)}%0ANome: ${encodeURIComponent(data.nome)}%0AWhatsApp: ${encodeURIComponent(data.whatsapp)}%0AIdentificação: ${encodeURIComponent(data.identificacao || "Não informado")}%0APáginas vistas: ${encodeURIComponent(data.paginas_vistas)}%0AData: ${encodeURIComponent(new Date().toLocaleString("pt-BR"))}%0ADeclaro que li e entendi as orientações do gibi de integração.`;
+  whatsBtn.href = `https://wa.me/${SUPPORT_WHATSAPP}?text=${msg}`;
+  whatsBtn.style.display = "flex";
+  receipt.style.display = "block";
+  receipt.innerHTML = `<strong>Confirmação registrada.</strong><br>Protocolo: ${data.protocolo}<br>Nome: ${data.nome}<br>Telas vistas: ${data.paginas_vistas}<br><br>${SHEET_WEBHOOK_URL ? "Registro enviado para a planilha." : "Para salvar no controle agora, toque em “Enviar confirmação no WhatsApp”."}`;
+  confirmBtn.textContent = "Leitura confirmada";
+}
 
-    pages.forEach((p, i) => {
-      const btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'thumb';
-      btn.setAttribute('aria-label', `Ir para página ${i + 1}: ${p.title}`);
-      btn.innerHTML = `<img src="${p.img}" alt=""><span>${i + 1}</span>`;
-      btn.addEventListener('click', () => {
-        safeSet(i);
-        window.scrollTo({top:0, behavior:'smooth'});
-      });
-      thumbs.appendChild(btn);
-    });
-
-    document.getElementById('nextBtn').addEventListener('click', next);
-    document.getElementById('prevBtn').addEventListener('click', prev);
-    document.getElementById('nextText').addEventListener('click', next);
-    document.getElementById('prevText').addEventListener('click', prev);
-    document.getElementById('restartBtn').addEventListener('click', () => {
-  
-    const SHEET_WEBHOOK_URL = ""; // Depois de implantar o Apps Script, cole aqui a URL do Web App da planilha.
-    const SUPPORT_WHATSAPP = "5511924782555";
-
-    const viewedPages = new Set(JSON.parse(localStorage.getItem('oe_gibi_pages_viewed') || '[]'));
-    const readStatus = document.getElementById('readStatus');
-    const readCount = document.getElementById('readCount');
-    const confirmReadBtn = document.getElementById('confirmReadBtn');
-    const receiptBox = document.getElementById('receiptBox');
-    const whatsConfirm = document.getElementById('whatsConfirm');
-
-    function updateReadStatus(){
-      readCount.textContent = `${viewedPages.size}/${pages.length} vistas`;
-      const complete = viewedPages.size >= pages.length;
-      readStatus.classList.toggle('is-complete', complete);
-      confirmReadBtn.disabled = !complete;
-      confirmReadBtn.textContent = complete ? 'Confirmar que li e entendi' : `Leia todas as páginas para confirmar (${viewedPages.size}/${pages.length})`;
-    }
-
-    function protocolCode(){
-      const d = new Date();
-      const pad = n => String(n).padStart(2,'0');
-      return `OE-${d.getFullYear()}${pad(d.getMonth()+1)}${pad(d.getDate())}-${pad(d.getHours())}${pad(d.getMinutes())}${pad(d.getSeconds())}`;
-    }
-
-    async function confirmReading(){
-      const name = document.getElementById('partnerName').value.trim();
-      const phone = document.getElementById('partnerPhone').value.trim();
-      const doc = document.getElementById('partnerDoc').value.trim();
-
-      if(!name || !phone){
-        alert('Preencha nome e WhatsApp para registrar a confirmação.');
-        return;
-      }
-
-      if(viewedPages.size < pages.length){
-        alert('Para confirmar, primeiro passe por todas as páginas do gibi.');
-        return;
-      }
-
-      const payload = {
-        tipo: 'confirmacao_leitura_gibi_oe',
-        protocolo: protocolCode(),
-        nome: name,
-        whatsapp: phone,
-        identificacao: doc,
-        paginas_vistas: Array.from(viewedPages).sort((a,b)=>a-b).map(n=>n+1).join(', '),
-        total_paginas: pages.length,
-        data_iso: new Date().toISOString(),
-        user_agent: navigator.userAgent,
-        url: location.href
-      };
-
-      localStorage.setItem('oe_gibi_confirmacao_leitura', JSON.stringify(payload));
-
-      if(SHEET_WEBHOOK_URL){
-        try{
-          await fetch(SHEET_WEBHOOK_URL, {
-            method:'POST',
-            mode:'no-cors',
-            headers:{'Content-Type':'application/json'},
-            body:JSON.stringify(payload)
-          });
-        }catch(err){
-          console.warn('Falha ao enviar para webhook. Registro local preservado.', err);
-        }
-      }
-
-      const msg = `CONFIRMAÇÃO DE LEITURA - GIBI OE%0AProtocolo: ${encodeURIComponent(payload.protocolo)}%0ANome: ${encodeURIComponent(payload.nome)}%0AWhatsApp: ${encodeURIComponent(payload.whatsapp)}%0AIdentificação: ${encodeURIComponent(payload.identificacao || 'Não informado')}%0APáginas vistas: ${encodeURIComponent(payload.paginas_vistas)}%0AData: ${encodeURIComponent(new Date().toLocaleString('pt-BR'))}%0ADeclaro que li e entendi as orientações do gibi de integração.`;
-      whatsConfirm.href = `https://wa.me/${SUPPORT_WHATSAPP}?text=${msg}`;
-      whatsConfirm.style.display = 'flex';
-
-      receiptBox.style.display = 'block';
-      receiptBox.innerHTML = `<strong>Confirmação registrada neste aparelho.</strong>Protocolo: ${payload.protocolo}<br>Nome: ${payload.nome}<br>Páginas vistas: ${payload.paginas_vistas}<br><br>${SHEET_WEBHOOK_URL ? 'Registro preparado para envio ao controle central.' : 'Para salvar no controle da operação agora, toque em “Enviar confirmação no WhatsApp”.'}`;
-      confirmReadBtn.textContent = 'Leitura confirmada';
-    }
-
-    confirmReadBtn.addEventListener('click', confirmReading);
-
-
-    safeSet(0);
-      window.scrollTo({top:0, behavior:'smooth'});
-    });
-
-    document.addEventListener('keydown', (e) => {
-      if(e.key === 'ArrowRight') next();
-      if(e.key === 'ArrowLeft') prev();
-    });
-
-    document.getElementById('imageShell').addEventListener('touchstart', (e) => {
-      const t = e.changedTouches[0];
-      touchStartX = t.clientX;
-      touchStartY = t.clientY;
-    }, {passive:true});
-
-    document.getElementById('imageShell').addEventListener('touchend', (e) => {
-      const t = e.changedTouches[0];
-      const dx = t.clientX - touchStartX;
-      const dy = t.clientY - touchStartY;
-      if(Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy)){
-        dx < 0 ? next() : prev();
-      }
-    }, {passive:true});
-
-    // Garante que a imagem seja inteira: sem crop, sem cover.
-    image.style.objectFit = 'contain';
-
-
-    const SHEET_WEBHOOK_URL = ""; // Depois de implantar o Apps Script, cole aqui a URL do Web App da planilha.
-    const SUPPORT_WHATSAPP = "5511924782555";
-
-    const viewedPages = new Set(JSON.parse(localStorage.getItem('oe_gibi_pages_viewed') || '[]'));
-    const readStatus = document.getElementById('readStatus');
-    const readCount = document.getElementById('readCount');
-    const confirmReadBtn = document.getElementById('confirmReadBtn');
-    const receiptBox = document.getElementById('receiptBox');
-    const whatsConfirm = document.getElementById('whatsConfirm');
-
-    function updateReadStatus(){
-      readCount.textContent = `${viewedPages.size}/${pages.length} vistas`;
-      const complete = viewedPages.size >= pages.length;
-      readStatus.classList.toggle('is-complete', complete);
-      confirmReadBtn.disabled = !complete;
-      confirmReadBtn.textContent = complete ? 'Confirmar que li e entendi' : `Leia todas as páginas para confirmar (${viewedPages.size}/${pages.length})`;
-    }
-
-    function protocolCode(){
-      const d = new Date();
-      const pad = n => String(n).padStart(2,'0');
-      return `OE-${d.getFullYear()}${pad(d.getMonth()+1)}${pad(d.getDate())}-${pad(d.getHours())}${pad(d.getMinutes())}${pad(d.getSeconds())}`;
-    }
-
-    async function confirmReading(){
-      const name = document.getElementById('partnerName').value.trim();
-      const phone = document.getElementById('partnerPhone').value.trim();
-      const doc = document.getElementById('partnerDoc').value.trim();
-
-      if(!name || !phone){
-        alert('Preencha nome e WhatsApp para registrar a confirmação.');
-        return;
-      }
-
-      if(viewedPages.size < pages.length){
-        alert('Para confirmar, primeiro passe por todas as páginas do gibi.');
-        return;
-      }
-
-      const payload = {
-        tipo: 'confirmacao_leitura_gibi_oe',
-        protocolo: protocolCode(),
-        nome: name,
-        whatsapp: phone,
-        identificacao: doc,
-        paginas_vistas: Array.from(viewedPages).sort((a,b)=>a-b).map(n=>n+1).join(', '),
-        total_paginas: pages.length,
-        data_iso: new Date().toISOString(),
-        user_agent: navigator.userAgent,
-        url: location.href
-      };
-
-      localStorage.setItem('oe_gibi_confirmacao_leitura', JSON.stringify(payload));
-
-      if(SHEET_WEBHOOK_URL){
-        try{
-          await fetch(SHEET_WEBHOOK_URL, {
-            method:'POST',
-            mode:'no-cors',
-            headers:{'Content-Type':'application/json'},
-            body:JSON.stringify(payload)
-          });
-        }catch(err){
-          console.warn('Falha ao enviar para webhook. Registro local preservado.', err);
-        }
-      }
-
-      const msg = `CONFIRMAÇÃO DE LEITURA - GIBI OE%0AProtocolo: ${encodeURIComponent(payload.protocolo)}%0ANome: ${encodeURIComponent(payload.nome)}%0AWhatsApp: ${encodeURIComponent(payload.whatsapp)}%0AIdentificação: ${encodeURIComponent(payload.identificacao || 'Não informado')}%0APáginas vistas: ${encodeURIComponent(payload.paginas_vistas)}%0AData: ${encodeURIComponent(new Date().toLocaleString('pt-BR'))}%0ADeclaro que li e entendi as orientações do gibi de integração.`;
-      whatsConfirm.href = `https://wa.me/${SUPPORT_WHATSAPP}?text=${msg}`;
-      whatsConfirm.style.display = 'flex';
-
-      receiptBox.style.display = 'block';
-      receiptBox.innerHTML = `<strong>Confirmação registrada neste aparelho.</strong>Protocolo: ${payload.protocolo}<br>Nome: ${payload.nome}<br>Páginas vistas: ${payload.paginas_vistas}<br><br>${SHEET_WEBHOOK_URL ? 'Registro preparado para envio ao controle central.' : 'Para salvar no controle da operação agora, toque em “Enviar confirmação no WhatsApp”.'}`;
-      confirmReadBtn.textContent = 'Leitura confirmada';
-    }
-
-    confirmReadBtn.addEventListener('click', confirmReading);
-
-
-    safeSet(0);
-  </script>
+confirmBtn.addEventListener("click", confirmReading);
+setSlide(0);
+</script>
 </body>
 </html>

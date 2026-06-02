@@ -1,83 +1,13 @@
-# Gibi online Osasco Express
+# Gibi online Osasco Express - APP fechado
 
-Arquivo principal: index.html
-
-Regras aplicadas:
+Correção principal:
+- Não existe mais confirmação abaixo do gibi.
+- Não existe seção longa depois do leitor.
+- A confirmação é a tela 11/11 dentro do próprio fluxo.
+- O app ocupa a tela do celular.
+- A pessoa passa pelas telas 1 a 10 e chega na tela 11 para confirmar.
+- As imagens não cortam: object-fit contain.
 - Fundo branco.
-- Interface sem branco/amarelo como cor de botões/controles.
-- Imagens exibidas inteiras com object-fit: contain.
-- Sem corte de imagem.
-- Mobile-first.
-- Setas laterais, botões, teclado e arraste no celular.
-- Miniaturas navegáveis.
-- Textos leves abaixo da imagem.
-- Última etapa com confirmação de leitura.
-- A confirmação só libera depois que todas as páginas forem vistas.
-- Salva localmente no aparelho via localStorage.
-- Gera confirmação por WhatsApp.
-- Pode salvar centralmente em Google Sheets/App Script preenchendo SHEET_WEBHOOK_URL no index.html.
-
-
-INTEGRAÇÃO COM PLANILHA
-INTEGRAÇÃO DA CONFIRMAÇÃO DE LEITURA COM GOOGLE SHEETS
-
-Planilha informada:
-https://docs.google.com/spreadsheets/d/1Pw9APJuBv0hVlFKrSqjqtDgGJaknXb1_Gms-I12O2j4/edit
-
-O que já está pronto no index.html:
-- O parceiro precisa passar por todas as páginas.
-- Depois libera o botão "Confirmar que li e entendi".
-- O sistema gera protocolo.
-- Salva localmente no aparelho.
-- Gera botão de WhatsApp.
-- Está preparado para enviar para Google Sheets.
-
-O que falta fazer no Google:
-1. Abra a planilha.
-2. Clique em Extensões > Apps Script.
-3. Apague o código que estiver lá.
-4. Cole o conteúdo do arquivo:
-   google-apps-script/Code.gs
-5. Salve.
-6. Execute a função setup uma vez.
-7. Autorize as permissões.
-8. Clique em Implantar > Nova implantação.
-9. Tipo: App da Web.
-10. Executar como: você mesmo.
-11. Quem tem acesso: qualquer pessoa.
-12. Clique em Implantar.
-13. Copie a URL do Web App.
-
-Depois:
-1. Abra o index.html.
-2. Procure esta linha:
-
-const SHEET_WEBHOOK_URL = "";
-
-3. Cole a URL do Web App entre as aspas:
-
-const SHEET_WEBHOOK_URL = "COLE_A_URL_AQUI";
-
-4. Salve e publique no GitHub.
-
-Aba que será criada/usada:
-Confirmacoes
-
-Colunas:
-Data/Hora
-Protocolo
-Nome do parceiro
-WhatsApp
-Placa ou identificação
-Páginas vistas
-Total de páginas
-Tipo
-URL de origem
-User Agent
-
-
-REVISÃO DE HISTÓRIA
-- Página 8 reforçada no título: "Problema com cliente? Não discuta".
-- Card de resumo reforçado: "Não discuta com o cliente".
-- Declaração de leitura reforçada com "não discutir com cliente".
-- Incluído mapa da história completa no index para auditoria rápida.
+- Sem controles amarelos/brancos que prejudiquem leitura.
+- Página 8 reforçada: Problema com cliente? Não discuta.
+- Para salvar em planilha, cole a URL do Apps Script em SHEET_WEBHOOK_URL.
