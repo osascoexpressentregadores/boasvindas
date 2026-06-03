@@ -62,41 +62,11 @@ button,a{-webkit-tap-highlight-color:transparent}
 .progress{height:4px;margin:6px 8px 0;border-radius:999px;background:#d8dee5;overflow:hidden}
 .progress span{display:block;height:100%;width:0;background:var(--red);border-radius:999px;transition:width .24s ease}
 
-.viewer{
-  min-height:0;
-  position:relative;
-  padding:0 0 calc(8px + var(--safe-bottom));
-  display:grid;
-}
-.art{
-  min-height:0;
-  width:100%;
-  height:100%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:#fff;
-  position:relative;
-  touch-action:pan-y;
-}
-.page{
-  display:block;
-  width:100%;
-  height:100%;
-  object-fit:contain;
-  object-position:center center;
-  background:#fff;
-  user-select:none;
-  -webkit-user-drag:none;
-}
-.confirm{
-  display:none;
-  width:100%;
-  height:100%;
-  padding:10px;
-  overflow:auto;
-  background:#fff;
-}
+.viewer{min-height:0;position:relative;padding:0 0 calc(8px + var(--safe-bottom));display:grid}
+.art{min-height:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#fff;position:relative;touch-action:pan-y}
+.page{display:block;width:100%;height:100%;object-fit:contain;object-position:center center;background:#fff;user-select:none;-webkit-user-drag:none}
+
+.confirm{display:none;width:100%;height:100%;padding:10px;overflow:auto;background:#fff}
 .confirm-inner{
   min-height:100%;
   border-radius:28px;
@@ -127,59 +97,17 @@ button,a{-webkit-tap-highlight-color:transparent}
 .confirm-btn{height:50px;width:100%;border:0;border-radius:17px;background:var(--green);color:#d9dee5;font-weight:900;cursor:pointer;box-shadow:0 10px 20px rgba(13,91,56,.18)}
 .confirm-btn:disabled{background:#9aa3ad;color:#f4f6f8;box-shadow:none;cursor:not-allowed}
 .receipt{display:none;margin-top:8px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:10px;font-size:11.5px;line-height:1.34;color:var(--ink)}
+.receipt.err{border-color:var(--red);background:#fff5f5}
+.receipt.ok{border-color:var(--green);background:#f3fff7}
 
-.side{
-  position:fixed;
-  z-index:30;
-  top:50%;
-  transform:translateY(-50%);
-  width:48px;
-  height:84px;
-  border:0;
-  border-radius:20px;
-  background:rgba(7,8,10,.88);
-  color:#d9dee5;
-  display:grid;
-  place-items:center;
-  font-size:52px;
-  line-height:1;
-  cursor:pointer;
-  box-shadow:0 16px 34px rgba(0,0,0,.24);
-  backdrop-filter:blur(12px);
-  -webkit-backdrop-filter:blur(12px);
-}
+.side{position:fixed;z-index:30;top:50%;transform:translateY(-50%);width:48px;height:84px;border:0;border-radius:20px;background:rgba(7,8,10,.88);color:#d9dee5;display:grid;place-items:center;font-size:52px;line-height:1;cursor:pointer;box-shadow:0 16px 34px rgba(0,0,0,.24);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
 .side:active{transform:translateY(-50%) scale(.96)}
 .prev{left:7px}
 .next{right:7px}
-.page-title{
-  position:absolute;
-  z-index:12;
-  left:50%;
-  bottom:calc(10px + var(--safe-bottom));
-  transform:translateX(-50%);
-  max-width:min(86vw, 440px);
-  padding:9px 13px;
-  border-radius:18px;
-  background:rgba(238,242,246,.80);
-  border:1px solid rgba(16,17,20,.13);
-  backdrop-filter:blur(16px);
-  -webkit-backdrop-filter:blur(16px);
-  box-shadow:0 10px 24px rgba(10,14,20,.10);
-  color:var(--ink);
-  text-align:center;
-  font-weight:900;
-  font-size:13px;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-}
+.page-title{position:absolute;z-index:12;left:50%;bottom:calc(10px + var(--safe-bottom));transform:translateX(-50%);max-width:min(86vw,440px);padding:9px 13px;border-radius:18px;background:rgba(238,242,246,.80);border:1px solid rgba(16,17,20,.13);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 10px 24px rgba(10,14,20,.10);color:var(--ink);text-align:center;font-weight:900;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .confirm-visible .page-title{display:none}
 
-.second-fold{
-  background:#fff;
-  padding:26px 16px 34px;
-  border-top:1px solid var(--line);
-}
+.second-fold{background:#fff;padding:26px 16px 34px;border-top:1px solid var(--line)}
 .second-inner{max-width:920px;margin:0 auto}
 .second-fold h2{margin:0 0 8px;font-size:28px;line-height:1;letter-spacing:-.05em;color:var(--ink)}
 .second-fold p{margin:0 0 15px;color:var(--muted);font-size:15px;line-height:1.42}
@@ -189,28 +117,10 @@ button,a{-webkit-tap-highlight-color:transparent}
 .card span{display:block;color:var(--muted);font-size:13.5px;line-height:1.35}
 .footer{display:grid;gap:8px;margin-top:20px;padding-top:16px;border-top:1px solid var(--line);color:var(--muted);font-size:13px}
 .footer a{color:var(--ink);font-weight:900;text-decoration:none}
-.victory{
-  position:fixed;
-  inset:0;
-  z-index:100;
-  background:rgba(255,255,255,.78);
-  backdrop-filter:blur(10px);
-  -webkit-backdrop-filter:blur(10px);
-  display:none;
-  place-items:center;
-}
+
+.victory{position:fixed;inset:0;z-index:100;background:rgba(255,255,255,.78);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);display:none;place-items:center}
 .victory.show{display:grid;animation:fadeIn .2s ease both}
-.victory-card{
-  width:min(86vw,390px);
-  border-radius:28px;
-  background:#fff;
-  border:1px solid var(--line);
-  box-shadow:0 30px 80px rgba(10,14,20,.24);
-  padding:28px 18px;
-  text-align:center;
-  position:relative;
-  overflow:hidden;
-}
+.victory-card{width:min(86vw,390px);border-radius:28px;background:#fff;border:1px solid var(--line);box-shadow:0 30px 80px rgba(10,14,20,.24);padding:28px 18px;text-align:center;position:relative;overflow:hidden}
 .ball{font-size:68px;display:block;animation:kick 1.1s cubic-bezier(.2,.8,.2,1) both}
 .victory-card h2{margin:4px 0 8px;font-size:34px;letter-spacing:-.05em;color:var(--ink)}
 .victory-card p{margin:0;color:var(--muted);line-height:1.36}
@@ -250,7 +160,8 @@ button,a{-webkit-tap-highlight-color:transparent}
         <div class="confirm-inner">
           <span class="confirm-kicker">Jogador informado</span>
           <h1>Confirmar leitura</h1>
-          <p>Preencha nome, sobrenome e telefone. Ao confirmar, a leitura será registrada na planilha da operação.</p>
+          <p>Preencha nome e sobrenome. O botão registra a leitura e envia para a planilha da operação.</p>
+
           <div class="rules">
             <div class="rule"><b>✓</b><span>Grupo da loja é canal oficial.</span></div>
             <div class="rule"><b>✓</b><span>Conferência antes de sair da loja.</span></div>
@@ -258,12 +169,15 @@ button,a{-webkit-tap-highlight-color:transparent}
             <div class="rule"><b>✓</b><span>Cliente não apareceu: foto, grupo, loja, suporte e autorização.</span></div>
             <div class="rule"><b>✓</b><span>Problema com cliente: não discuta, acione suporte.</span></div>
           </div>
+
           <div class="status"><span>Telas vistas</span><small id="readCount">0/10</small></div>
+
           <div class="field"><label for="firstName">Nome</label><input id="firstName" placeholder="Nome" autocomplete="given-name" required></div>
           <div class="field"><label for="lastName">Sobrenome</label><input id="lastName" placeholder="Sobrenome" autocomplete="family-name" required></div>
-          <div class="field"><label for="phone">Telefone</label><input id="phone" placeholder="DDD + número" inputmode="tel" autocomplete="tel" required></div>
+
           <p class="declare">Declaro que li o gibi e entendi as orientações sobre comunicação, conferência, código, cliente não localizado, suporte, respeito e controle das entregas.</p>
-          <button class="confirm-btn" id="confirmBtn" disabled>Leia todas as telas para confirmar</button>
+
+          <button class="confirm-btn" id="confirmBtn">Confirmar leitura</button>
           <div class="receipt" id="receipt"></div>
         </div>
       </div>
@@ -299,7 +213,7 @@ button,a{-webkit-tap-highlight-color:transparent}
     <i class="confetti c1"></i><i class="confetti c2"></i><i class="confetti c3"></i><i class="confetti c4"></i>
     <span class="ball">⚽</span>
     <h2>Leitura confirmada!</h2>
-    <p>Jogador informado. A confirmação foi gerada para a planilha.</p>
+    <p>Jogador informado. A confirmação foi enviada para a planilha.</p>
   </div>
 </div>
 
@@ -308,60 +222,61 @@ const slides = [
   {
     "type": "image",
     "title": "Boas-vindas ao parceiro",
-    "img": "assets/img/01-boas-vindas.png"
+    "img": "assets/img/01-boas-vindas.jpg"
   },
   {
     "type": "image",
     "title": "Você foi convocado",
-    "img": "assets/img/02-voce-foi-convocado.png"
+    "img": "assets/img/02-voce-foi-convocado.jpg"
   },
   {
     "type": "image",
     "title": "Pronto para entrar em campo",
-    "img": "assets/img/03-pronto-para-entrar-em-campo.png"
+    "img": "assets/img/03-pronto-para-entrar-em-campo.jpg"
   },
   {
     "type": "image",
     "title": "Grupo é o rádio da operação",
-    "img": "assets/img/04-grupo-radio-operacao.png"
+    "img": "assets/img/04-grupo-radio-operacao.jpg"
   },
   {
     "type": "image",
     "title": "A jogada certa da entrega",
-    "img": "assets/img/05-jogada-certa-entrega.png"
+    "img": "assets/img/05-jogada-certa-entrega.jpg"
   },
   {
     "type": "image",
     "title": "Código primeiro, entrega depois",
-    "img": "assets/img/06-codigo-primeiro.png"
+    "img": "assets/img/06-codigo-primeiro.jpg"
   },
   {
     "type": "image",
     "title": "Cliente não apareceu",
-    "img": "assets/img/07-cliente-nao-apareceu.png"
+    "img": "assets/img/07-cliente-nao-apareceu.jpg"
   },
   {
     "type": "image",
     "title": "Problema com cliente? Não discuta",
-    "img": "assets/img/08-precisou-de-apoio.png"
+    "img": "assets/img/08-nao-discuta-suporte.jpg"
   },
   {
     "type": "image",
     "title": "Respeito também é entrega",
-    "img": "assets/img/09-respeito-tambem-e-entrega.png"
+    "img": "assets/img/09-respeito-tambem-e-entrega.jpg"
   },
   {
     "type": "image",
     "title": "Controle total das entregas",
-    "img": "assets/img/10-controle-total-entregas.png"
+    "img": "assets/img/10-controle-total-entregas.jpg"
   },
   {
     "type": "confirm",
     "title": "Confirmar leitura"
   }
 ];
-const SHEET_WEBHOOK_URL = ""; // Cole aqui a URL do Web App do Apps Script. Sem isso, não há envio para planilha.
+const SHEET_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbzEcVMMn6k2848T4ynISRvm88jPwx9Sl2aJyE4-hZ_hKjZa4xJQU3PfReqQaqWGHkdY-g/exec";
 const totalImages = slides.filter(s => s.type === "image").length;
+
 let index = 0, sx = 0, sy = 0;
 const viewed = new Set(JSON.parse(localStorage.getItem("oe_gibi_pages_viewed") || "[]"));
 
@@ -377,10 +292,8 @@ const receipt = document.getElementById("receipt");
 const victory = document.getElementById("victory");
 
 function updateRead(){
-  const ok = viewed.size >= totalImages;
   readCount.textContent = `${viewed.size}/${totalImages}`;
-  confirmBtn.disabled = !ok;
-  confirmBtn.textContent = ok ? "Confirmar leitura" : `Leia todas as telas para confirmar (${viewed.size}/${totalImages})`;
+  confirmBtn.textContent = viewed.size >= totalImages ? "Confirmar leitura" : `Confirmar leitura (${viewed.size}/${totalImages} telas vistas)`;
 }
 
 function setSlide(i){
@@ -419,27 +332,39 @@ document.addEventListener("keydown", e => { if(e.key === "ArrowRight") next(); i
 document.getElementById("touchArea").addEventListener("touchstart", e => {
   const t = e.changedTouches[0]; sx = t.clientX; sy = t.clientY;
 }, {passive:true});
+
 document.getElementById("touchArea").addEventListener("touchend", e => {
-  const t = e.changedTouches[0]; const dx = t.clientX - sx; const dy = t.clientY - sy;
+  const t = e.changedTouches[0];
+  const dx = t.clientX - sx;
+  const dy = t.clientY - sy;
   if(Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy)) dx < 0 ? next() : prev();
 }, {passive:true});
 
 function protocol(){
-  const d = new Date(); const p = n => String(n).padStart(2,"0");
+  const d = new Date();
+  const p = n => String(n).padStart(2,"0");
   return `OE-${d.getFullYear()}${p(d.getMonth()+1)}${p(d.getDate())}-${p(d.getHours())}${p(d.getMinutes())}${p(d.getSeconds())}`;
 }
 
 async function confirmReading(){
   const nome = document.getElementById("firstName").value.trim();
   const sobrenome = document.getElementById("lastName").value.trim();
-  const telefone = document.getElementById("phone").value.trim();
 
-  if(!nome || !sobrenome || !telefone){
-    alert("Preencha nome, sobrenome e telefone para confirmar a leitura.");
+  receipt.className = "receipt";
+  receipt.style.display = "none";
+
+  if(!nome || !sobrenome){
+    receipt.className = "receipt err";
+    receipt.style.display = "block";
+    receipt.innerHTML = "<strong>Falta preencher.</strong><br>Nome e sobrenome são obrigatórios.";
+    alert("Preencha nome e sobrenome para confirmar a leitura.");
     return;
   }
 
   if(viewed.size < totalImages){
+    receipt.className = "receipt err";
+    receipt.style.display = "block";
+    receipt.innerHTML = `<strong>Leitura incompleta.</strong><br>Você passou por ${viewed.size}/${totalImages} telas. Passe por todas as telas do gibi antes de confirmar.`;
     alert("Passe por todas as telas do gibi antes de confirmar.");
     return;
   }
@@ -449,7 +374,6 @@ async function confirmReading(){
     protocolo:protocol(),
     nome,
     sobrenome,
-    telefone,
     leu:"SIM",
     paginas_vistas:[...viewed].sort((a,b)=>a-b).map(n=>n+1).join(", "),
     total_paginas:totalImages,
@@ -459,37 +383,31 @@ async function confirmReading(){
   };
 
   localStorage.setItem("oe_gibi_confirmacao_leitura", JSON.stringify(data));
-
   confirmBtn.disabled = true;
   confirmBtn.textContent = "Registrando...";
-
-  if(!SHEET_WEBHOOK_URL){
-    receipt.style.display = "block";
-    receipt.innerHTML = `<strong>Planilha ainda não conectada.</strong><br>Protocolo local: ${data.protocolo}<br>Nome: ${data.nome} ${data.sobrenome}<br>Telefone: ${data.telefone}<br><br>Para gerar a linha automaticamente, cole a URL do Web App em SHEET_WEBHOOK_URL no index.html.`;
-    confirmBtn.disabled = false;
-    confirmBtn.textContent = "Confirmar leitura";
-    return;
-  }
 
   try {
     await fetch(SHEET_WEBHOOK_URL, {
       method:"POST",
       mode:"no-cors",
-      headers:{"Content-Type":"application/json"},
+      headers:{"Content-Type":"text/plain;charset=utf-8"},
       body:JSON.stringify(data)
     });
 
+    receipt.className = "receipt ok";
     receipt.style.display = "block";
-    receipt.innerHTML = `<strong>Leitura confirmada.</strong><br>Protocolo: ${data.protocolo}<br>Nome: ${data.nome} ${data.sobrenome}<br>Telefone: ${data.telefone}<br>Leu: SIM`;
+    receipt.innerHTML = `<strong>Leitura confirmada.</strong><br>Protocolo: ${data.protocolo}<br>Nome: ${data.nome} ${data.sobrenome}<br>Leu: SIM<br>Registro enviado para a planilha.`;
+
     victory.classList.add("show");
     setTimeout(() => victory.classList.remove("show"), 1800);
     confirmBtn.textContent = "Leitura confirmada";
   } catch(err) {
     console.error(err);
+    receipt.className = "receipt err";
     receipt.style.display = "block";
-    receipt.innerHTML = `<strong>Não foi possível enviar para a planilha.</strong><br>O registro local foi preservado neste aparelho. Verifique a URL do Web App.`;
+    receipt.innerHTML = "<strong>Falha no envio.</strong><br>Verifique se o Apps Script está implantado como Web App com acesso para qualquer pessoa.";
     confirmBtn.disabled = false;
-    confirmBtn.textContent = "Tentar confirmar novamente";
+    confirmBtn.textContent = "Tentar novamente";
   }
 }
 

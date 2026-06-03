@@ -1,0 +1,11 @@
+COMO SUBIR NO GITHUB
+
+Suba o CONTEÚDO desta pasta, não o ZIP fechado.
+
+Arquivos obrigatórios:
+- index.html
+- assets/img/ com as 10 imagens
+- .nojekyll
+
+A planilha já está conectada no index.html com a URL do Apps Script enviada.
+O formulário final pede apenas Nome e Sobrenome.
