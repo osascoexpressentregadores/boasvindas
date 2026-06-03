@@ -1,11 +1,21 @@
-COMO SUBIR NO GITHUB
+CORREÇÃO RÁPIDA DO REGISTRO NO SHEETS
 
-Suba o CONTEÚDO desta pasta, não o ZIP fechado.
+O site agora envia a confirmação por GET via iframe, mais estável no GitHub Pages com Apps Script.
 
-Arquivos obrigatórios:
-- index.html
-- assets/img/ com as 10 imagens
-- .nojekyll
+ANTES DE TESTAR:
+1. No Google Sheets, abra Extensões > Apps Script.
+2. Substitua TODO o código pelo arquivo google-apps-script/Code.gs deste ZIP.
+3. Salve.
+4. Execute setup uma vez.
+5. Depois clique em Implantar > Gerenciar implantações.
+6. Clique no lápis da implantação atual.
+7. Em versão, escolha Nova versão.
+8. Confira:
+   - Executar como: você mesmo
+   - Quem tem acesso: qualquer pessoa
+9. Clique em Implantar.
 
-A planilha já está conectada no index.html com a URL do Apps Script enviada.
-O formulário final pede apenas Nome e Sobrenome.
+Depois suba este index.html + assets/img no GitHub.
+
+URL já configurada no index:
+https://script.google.com/macros/s/AKfycbzEcVMMn6k2848T4ynISRvm88jPwx9Sl2aJyE4-hZ_hKjZa4xJQU3PfReqQaqWGHkdY-g/exec

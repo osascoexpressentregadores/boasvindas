@@ -387,20 +387,34 @@ async function confirmReading(){
   confirmBtn.textContent = "Registrando...";
 
   try {
-    await fetch(SHEET_WEBHOOK_URL, {
-      method:"POST",
-      mode:"no-cors",
-      headers:{"Content-Type":"text/plain;charset=utf-8"},
-      body:JSON.stringify(data)
-    });
+    const params = new URLSearchParams();
+    params.set("nome", data.nome);
+    params.set("sobrenome", data.sobrenome);
+    params.set("leu", data.leu);
+    params.set("protocolo", data.protocolo);
+    params.set("paginas_vistas", data.paginas_vistas);
+    params.set("total_paginas", data.total_paginas);
+    params.set("tipo", data.tipo);
+    params.set("url", data.url);
+    params.set("user_agent", data.user_agent);
+
+    const iframe = document.createElement("iframe");
+    iframe.style.display = "none";
+    iframe.name = "sheetFrame_" + Date.now();
+    iframe.src = SHEET_WEBHOOK_URL + "?" + params.toString();
+    document.body.appendChild(iframe);
 
     receipt.className = "receipt ok";
     receipt.style.display = "block";
-    receipt.innerHTML = `<strong>Leitura confirmada.</strong><br>Protocolo: ${data.protocolo}<br>Nome: ${data.nome} ${data.sobrenome}<br>Leu: SIM<br>Registro enviado para a planilha.`;
+    receipt.innerHTML = `<strong>Leitura confirmada.</strong><br>Protocolo: ${data.protocolo}<br>Nome: ${data.nome} ${data.sobrenome}<br>Leu: SIM<br>Envio disparado para a planilha. Confira a aba Confirmacoes.`;
 
     victory.classList.add("show");
     setTimeout(() => victory.classList.remove("show"), 1800);
     confirmBtn.textContent = "Leitura confirmada";
+
+    setTimeout(() => {
+      try { iframe.remove(); } catch(e) {}
+    }, 8000);
   } catch(err) {
     console.error(err);
     receipt.className = "receipt err";
