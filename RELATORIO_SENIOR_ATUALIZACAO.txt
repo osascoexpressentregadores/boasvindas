@@ -1,0 +1,33 @@
+ATUALIZAÇÃO SÊNIOR - GIBI DE INTEGRAÇÃO OE
+
+Versão: 2026-06-05-v12
+
+O que foi ajustado:
+1. Projeto limpo para produção, mantendo apenas os arquivos usados pelo index.html.
+2. Removidas cópias antigas/duplicadas de imagens PNG que deixavam o ZIP pesado sem necessidade.
+3. Mantidas 12 telas de gibi + 1 tela de confirmação de leitura.
+4. Incluídas as telas novas:
+   - assets/img/11-parou-no-mapa.png
+   - assets/img/12-fique-offline-fim-turno.png
+5. Fluxo atualizado:
+   01 Boas-vindas
+   02 Você foi convocado
+   03 Pronto para entrar em campo
+   04 Grupo é o rádio da operação
+   05 Jogada certa da entrega
+   06 Código primeiro
+   07 Cliente não apareceu
+   08 Problema com cliente: não discuta
+   09 Parou no mapa
+   10 Respeito também é entrega
+   11 Controle total das entregas
+   12 Fim do turno: fique offline
+   13 Confirmação de leitura
+6. Confirmação final revisada para citar parada no mapa, retorno à loja, suporte e ficar offline ao terminar o turno.
+7. LocalStorage versionado para obrigar nova leitura completa desta versão, mesmo se o parceiro já tiver aberto a versão antiga.
+8. Imagens carregadas com cache-busting por versão para reduzir risco de o navegador manter arte antiga após subir no GitHub Pages.
+9. Pré-carregamento simples da tela anterior e próxima para melhorar navegação no celular.
+
+Atenção editorial:
+- A arte “Acabou o turno? Fica offline!” ainda traz o número visual 11 dentro da própria imagem. No fluxo técnico ela está como tela 12. Para acabamento 100%, o ideal é corrigir a arte visualmente para 12/12 antes da versão finalíssima.
+- Não havia imagem de “devolver a maquininha” neste ZIP. Se essa tela existir em outro arquivo, o encaixe ideal é: devolver maquininha -> ficar offline -> confirmação de leitura.

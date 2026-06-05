@@ -1,0 +1,15 @@
+AS IMAGENS NOVAS ESTAO INCLUIDAS NO PROJETO EM DOIS LUGARES:
+
+1) Local usado pelo site/gibi:
+assets/img/11-parou-no-mapa.png
+assets/img/12-fique-offline-fim-turno.png
+
+2) Copia para conferencia visual:
+IMAGENS_NOVAS_AQUI/11-parou-no-mapa.png
+IMAGENS_NOVAS_AQUI/12-fique-offline-fim-turno.png
+
+No index.html elas aparecem no fluxo:
+- Depois de: Problema com cliente? Não discuta
+- Antes de: Respeito também é entrega
+- Depois de: Controle total das entregas
+- Antes de: Confirmar leitura

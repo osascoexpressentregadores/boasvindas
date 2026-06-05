@@ -1,0 +1,19 @@
+CONFERENCIA SENIOR - GIBI DE INTEGRACAO OE
+
+Imagens novas confirmadas no index.html:
+
+1. Parou no mapa? Comunique e organize o jogo
+Arquivo: assets/img/11-parou-no-mapa.png
+Posicao na historia: depois da tela "Problema com cliente? Não discuta".
+Funcao narrativa: orientar o parceiro quando nao consegue seguir no mapa, reforcando grupo, retorno a loja e suporte.
+
+2. Fim do turno: fique offline
+Arquivo: assets/img/12-fique-offline-fim-turno.png
+Posicao na historia: depois da tela "Controle total das entregas" e antes da confirmacao de leitura.
+Funcao narrativa: fechar a jornada operacional explicando que ficar offline ajuda suporte e despacho automatico.
+
+Confirmacao de leitura preservada:
+Webhook mantido: https://script.google.com/macros/s/AKfycbzEcVMMn6k2848T4ynISRvm88jPwx9Sl2aJyE4-hZ_hKjZa4xJQU3PfReqQaqWGHkdY-g/exec
+Versao do gibi: 2026-06-05-v12
+Total de imagens no fluxo: 12
+Tela final: confirmar leitura
