@@ -148,7 +148,7 @@ button,a{-webkit-tap-highlight-color:transparent}
         <div class="oe">OE</div>
         <div class="brand-text"><strong>Gibi de Integração</strong><span>Parceiro Osasco Express</span></div>
       </div>
-      <div class="count" id="counter">1/11</div>
+      <div class="count" id="counter">1/13</div>
     </div>
     <div class="progress"><span id="progress"></span></div>
   </header>
@@ -168,14 +168,16 @@ button,a{-webkit-tap-highlight-color:transparent}
             <div class="rule"><b>✓</b><span>Código primeiro, entrega depois.</span></div>
             <div class="rule"><b>✓</b><span>Cliente não apareceu: foto, grupo, loja, suporte e autorização.</span></div>
             <div class="rule"><b>✓</b><span>Problema com cliente: não discuta, acione suporte.</span></div>
+            <div class="rule"><b>✓</b><span>Se não conseguir seguir, avise no grupo, retorne à loja e chame o suporte.</span></div>
+            <div class="rule"><b>✓</b><span>Terminou o turno: fique offline para não atrapalhar o despacho automático.</span></div>
           </div>
 
-          <div class="status"><span>Telas vistas</span><small id="readCount">0/10</small></div>
+          <div class="status"><span>Telas vistas</span><small id="readCount">0/12</small></div>
 
           <div class="field"><label for="firstName">Nome</label><input id="firstName" placeholder="Nome" autocomplete="given-name" required></div>
           <div class="field"><label for="lastName">Sobrenome</label><input id="lastName" placeholder="Sobrenome" autocomplete="family-name" required></div>
 
-          <p class="declare">Declaro que li o gibi e entendi as orientações sobre comunicação, conferência, código, cliente não localizado, suporte, respeito e controle das entregas.</p>
+          <p class="declare">Declaro que li o gibi e entendi as orientações sobre comunicação no grupo, conferência, código, cliente não localizado, parada no mapa, retorno à loja, suporte, respeito, controle das entregas e saída offline no fim do turno.</p>
 
           <button class="confirm-btn" id="confirmBtn">Confirmar leitura</button>
           <div class="receipt" id="receipt"></div>
@@ -192,13 +194,15 @@ button,a{-webkit-tap-highlight-color:transparent}
 <section class="second-fold">
   <div class="second-inner">
     <h2>Resumo da integração</h2>
-    <p>O gibi orienta o parceiro sobre comunicação no grupo da loja, conferência do pedido, código de entrega, cliente não localizado, suporte, respeito e controle das entregas.</p>
+    <p>O gibi orienta o parceiro sobre comunicação no grupo da loja, conferência do pedido, código de entrega, cliente não localizado, parada no mapa, suporte, respeito, controle das entregas e saída offline no fim do turno.</p>
     <div class="summary-grid">
       <div class="card"><strong>Comunicação</strong><span>Grupo da loja para avisar coleta, rota, código, atraso, retorno e erro no app.</span></div>
       <div class="card"><strong>Conferência</strong><span>Pedido, comanda, sacola, bebida, endereço, observações e pagamento antes de sair.</span></div>
       <div class="card"><strong>Código</strong><span>Cada plataforma tem seu código. Código primeiro, entrega depois.</span></div>
       <div class="card"><strong>Cliente não apareceu</strong><span>Contato, foto com comanda no endereço, grupo, loja, suporte e autorização.</span></div>
       <div class="card"><strong>Não discuta</strong><span>Problema com cliente: manter a calma, explicar que vai acionar suporte e seguir orientação.</span></div>
+      <div class="card"><strong>Parou no mapa</strong><span>Se não conseguir seguir, avise no grupo, retorne à loja e chame o suporte para orientar ou acionar substituição.</span></div>
+      <div class="card"><strong>Fim do turno</strong><span>Ao terminar, ficar offline deixa a visão do suporte clara e não atrapalha o despacho automático.</span></div>
       <div class="card"><strong>Confirmação</strong><span>A última tela registra que o parceiro leu e entendeu a integração.</span></div>
     </div>
     <div class="footer">
@@ -261,6 +265,11 @@ const slides = [
   },
   {
     "type": "image",
+    "title": "Parou no mapa? Comunique e organize o jogo",
+    "img": "assets/img/11-parou-no-mapa.png"
+  },
+  {
+    "type": "image",
     "title": "Respeito também é entrega",
     "img": "assets/img/09-respeito-tambem-e-entrega.jpg"
   },
@@ -270,15 +279,23 @@ const slides = [
     "img": "assets/img/10-controle-total-entregas.jpg"
   },
   {
+    "type": "image",
+    "title": "Fim do turno: fique offline",
+    "img": "assets/img/12-fique-offline-fim-turno.png"
+  },
+  {
     "type": "confirm",
     "title": "Confirmar leitura"
   }
 ];
 const SHEET_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbzEcVMMn6k2848T4ynISRvm88jPwx9Sl2aJyE4-hZ_hKjZa4xJQU3PfReqQaqWGHkdY-g/exec";
+const GIBI_VERSION = "2026-06-05-v12";
+const VIEWED_STORAGE_KEY = `oe_gibi_pages_viewed_${GIBI_VERSION}`;
+const CONFIRM_STORAGE_KEY = `oe_gibi_confirmacao_leitura_${GIBI_VERSION}`;
 const totalImages = slides.filter(s => s.type === "image").length;
 
 let index = 0, sx = 0, sy = 0;
-const viewed = new Set(JSON.parse(localStorage.getItem("oe_gibi_pages_viewed") || "[]"));
+const viewed = new Set(JSON.parse(localStorage.getItem(VIEWED_STORAGE_KEY) || "[]"));
 
 const screen = document.getElementById("screen");
 const pageImg = document.getElementById("pageImg");
@@ -296,6 +313,17 @@ function updateRead(){
   confirmBtn.textContent = viewed.size >= totalImages ? "Confirmar leitura" : `Confirmar leitura (${viewed.size}/${totalImages} telas vistas)`;
 }
 
+function preloadImage(slide){
+  if(!slide || slide.type !== "image") return;
+  const img = new Image();
+  img.src = `${slide.img}?v=${GIBI_VERSION}`;
+}
+
+function preloadAround(currentIndex){
+  preloadImage(slides[currentIndex + 1]);
+  preloadImage(slides[currentIndex - 1]);
+}
+
 function setSlide(i){
   if(i < 0) i = slides.length - 1;
   if(i >= slides.length) i = 0;
@@ -306,10 +334,11 @@ function setSlide(i){
     screen.classList.remove("confirm-visible");
     pageImg.style.display = "block";
     confirmSlide.style.display = "none";
-    pageImg.src = s.img;
+    pageImg.src = `${s.img}?v=${GIBI_VERSION}`;
     pageImg.alt = `Tela ${index+1}: ${s.title}`;
     viewed.add(index);
-    localStorage.setItem("oe_gibi_pages_viewed", JSON.stringify([...viewed]));
+    localStorage.setItem(VIEWED_STORAGE_KEY, JSON.stringify([...viewed]));
+    preloadAround(index);
   } else {
     screen.classList.add("confirm-visible");
     pageImg.style.display = "none";
@@ -382,7 +411,7 @@ async function confirmReading(){
     url:location.href
   };
 
-  localStorage.setItem("oe_gibi_confirmacao_leitura", JSON.stringify(data));
+  localStorage.setItem(CONFIRM_STORAGE_KEY, JSON.stringify(data));
   confirmBtn.disabled = true;
   confirmBtn.textContent = "Registrando...";
 
